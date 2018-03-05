@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassroomManager", "ClassroomManager\ClassroomManager.csproj", "{66BF831C-46F8-42FC-BF95-F100056C6D4F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore", "AppCore\AppCore.csproj", "{92DED6D8-C9D0-4AA7-953D-DACA11C649D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{FC911FE9-70D2-4297-B0EA-B0FBC253681F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{66BF831C-46F8-42FC-BF95-F100056C6D4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66BF831C-46F8-42FC-BF95-F100056C6D4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66BF831C-46F8-42FC-BF95-F100056C6D4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92DED6D8-C9D0-4AA7-953D-DACA11C649D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92DED6D8-C9D0-4AA7-953D-DACA11C649D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92DED6D8-C9D0-4AA7-953D-DACA11C649D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92DED6D8-C9D0-4AA7-953D-DACA11C649D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC911FE9-70D2-4297-B0EA-B0FBC253681F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC911FE9-70D2-4297-B0EA-B0FBC253681F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC911FE9-70D2-4297-B0EA-B0FBC253681F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC911FE9-70D2-4297-B0EA-B0FBC253681F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
