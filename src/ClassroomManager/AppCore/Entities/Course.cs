@@ -22,8 +22,6 @@ namespace AppCore.Entities
         public long TeacherId { get; set; }
         [JsonIgnore]
         public Teacher Teacher { get; set; }
-        //public ICollection<Lesson> Lessons { get; set; }
-        //public ICollection<Teacher> Teachers { get; set; }
-        //public ICollection<Student> Students { get; set; }
+        public ICollection<Lesson> Lessons { get; set; }
     }
 }
