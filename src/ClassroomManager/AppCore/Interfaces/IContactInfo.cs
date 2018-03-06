@@ -24,5 +24,8 @@ namespace App.Core.Entities
         [Display(Name = "Email Address")]
         [DataType(DataType.EmailAddress)]
         string Email { get; set; }
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date)]
+        string DoB { get; set; }
     }
 }

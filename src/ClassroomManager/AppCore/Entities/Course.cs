@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using App.Core.Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +23,6 @@ namespace AppCore.Entities
         public long TeacherId { get; set; }
         [JsonIgnore]
         public Teacher Teacher { get; set; }
-        public ICollection<Lesson> Lessons { get; set; }
+        public List<Lesson> Lessons { get; set; }
     }
 }
