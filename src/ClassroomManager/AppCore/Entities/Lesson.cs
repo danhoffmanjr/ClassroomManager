@@ -1,9 +1,6 @@
-﻿using App.Core.Interfaces;
-using AppCore.Entities;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Core.Entities
 {
@@ -14,8 +11,11 @@ namespace App.Core.Entities
         public string Subject { get; set; }
         public string PublishStatus { get; set; }
         public string ImageUrl { get; set; }
+        [InverseProperty("Section")]
         public List<LessonSection> Sections { get; set; }
+        [InverseProperty("Attachment")]
         public List<FileLink> Attachments { get; set; }
+        [InverseProperty("Assignment")]
         public List<Assignment> Assignments { get; set; }
         public List<StudentLesson> StudentLessons { get; set; }
 
