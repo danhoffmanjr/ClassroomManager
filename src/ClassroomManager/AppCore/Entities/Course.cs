@@ -17,10 +17,12 @@ namespace App.Core.Entities
         public DateTime? EndDate { get; set; }
         public string Status { get; set; }
 
-        // Nav Props
+        //Navigation Properties
+        //Parent
         public long TeacherId { get; set; }
         [JsonIgnore]
         public Teacher Teacher { get; set; }
+        //Child
         public List<Lesson> Lessons { get; set; }
     }
 }

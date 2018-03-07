@@ -1,8 +1,4 @@
-﻿using AppCore.Entities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace App.Core.Entities
 {
@@ -14,7 +10,9 @@ namespace App.Core.Entities
         public string ImageUrl { get; set; }
         public FileLink Attachment { get; set; }
         public decimal Grade { get; set; }
-        // Nav Props
+
+        //Navigation Properties
+        //Parent
         public long LessonId { get; set; }
         [JsonIgnore]
         public Lesson Lesson { get; set; }

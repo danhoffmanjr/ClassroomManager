@@ -6,6 +6,8 @@ namespace App.Core.Entities
     {
         public string FileUrl { get; set; }
 
+        //Navigation Properties
+        //Parent
         public long LessonId { get; set; }
         [JsonIgnore]
         public Lesson Lesson { get; set; }

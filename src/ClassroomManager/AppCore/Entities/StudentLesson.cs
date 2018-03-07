@@ -6,7 +6,6 @@ namespace App.Core.Entities
 {
     public class StudentLesson
     {
-        //NOTE: Need to setup model in DB context
         public long StudentId { get; set; }
         public Student Student { get; set; }
 

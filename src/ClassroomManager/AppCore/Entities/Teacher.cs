@@ -6,10 +6,11 @@ namespace App.Core.Entities
     public class Teacher : ContactInfo
     {
         public string Role { get; set; } = "Teacher";
-        // Nav Props
-        [InverseProperty("Course")]
+
+        //Navigation Properties
+        //Child 1
         public List<Course> Courses { get; set; }
-        [InverseProperty("Lesson")]
+        //Child 2
         public List<Lesson> Lessons { get; set; }
     }
 }
