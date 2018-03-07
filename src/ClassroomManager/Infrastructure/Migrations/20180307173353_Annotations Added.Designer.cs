@@ -11,8 +11,8 @@ using System;
 namespace App.Infrastructure.Migrations
 {
     [DbContext(typeof(ClassroomDbContext))]
-    [Migration("20180307134237_Init")]
-    partial class Init
+    [Migration("20180307173353_Annotations Added")]
+    partial class AnnotationsAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,9 +28,12 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<long?>("AttachmentId");
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .IsRequired();
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -40,13 +43,18 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<long>("LessonId");
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<string>("PublishStatus");
+                    b.Property<string>("PublishStatus")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -66,7 +74,9 @@ namespace App.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -74,17 +84,22 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<DateTime?>("EndDate");
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<DateTime?>("StartDate");
 
-                    b.Property<string>("Status");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(25);
 
                     b.Property<long>("TeacherId");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -102,15 +117,19 @@ namespace App.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("FileUrl");
+                    b.Property<string>("FileUrl")
+                        .IsRequired();
 
                     b.Property<long>("LessonId");
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -132,25 +151,35 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<long>("CourseId");
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<string>("ImageUrl");
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<string>("PublishStatus");
+                    b.Property<string>("PublishStatus")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Subject");
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("Summary");
+                    b.Property<string>("Summary")
+                        .IsRequired();
 
                     b.Property<long>("TeacherId");
 
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -170,9 +199,12 @@ namespace App.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Content");
+                    b.Property<string>("Content")
+                        .IsRequired();
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
@@ -180,13 +212,18 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<long>("LessonId");
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<string>("PublishStatus");
+                    b.Property<string>("PublishStatus")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("SubTitle");
+                    b.Property<string>("SubTitle")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -204,37 +241,61 @@ namespace App.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AddressLine");
+                    b.Property<string>("AddressLine")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("AddressLine2");
+                    b.Property<string>("AddressLine2")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("DoB");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("GradeLevel");
+                    b.Property<string>("GradeLevel")
+                        .IsRequired()
+                        .HasMaxLength(25);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
-                    b.Property<string>("PhoneNumberOpt");
+                    b.Property<string>("PhoneNumberOpt")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("Role");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(25);
 
-                    b.Property<string>("State");
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.Property<long>("TeacherId");
 
@@ -242,7 +303,9 @@ namespace App.Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<string>("Zip");
+                    b.Property<string>("Zip")
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 
@@ -269,41 +332,65 @@ namespace App.Infrastructure.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AddressLine");
+                    b.Property<string>("AddressLine")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("AddressLine2");
+                    b.Property<string>("AddressLine2")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("CreatedBy");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("DoB");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
-                    b.Property<string>("ModifiedBy");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
-                    b.Property<string>("PhoneNumberOpt");
+                    b.Property<string>("PhoneNumberOpt")
+                        .HasMaxLength(32);
 
-                    b.Property<string>("Role");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(25);
 
-                    b.Property<string>("State");
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<string>("Zip");
+                    b.Property<string>("Zip")
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.HasKey("Id");
 

@@ -11,12 +11,23 @@ namespace App.Core.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
+
+        [Required]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime CreatedDate { get; set; }
+
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ModifiedDate { get; set; }
+
+        [Required]
+        [StringLength(150)]
         public string CreatedBy { get; set; }
+
+        [StringLength(150)]
         public string ModifiedBy { get; set; }
+
         [Timestamp]
         public byte[] Version { get; set; }
     }

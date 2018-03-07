@@ -119,7 +119,7 @@ namespace App.Infrastructure.Migrations
                     PublishStatus = table.Column<string>(nullable: true),
                     Subject = table.Column<string>(nullable: true),
                     Summary = table.Column<string>(nullable: true),
-                    TeacherId = table.Column<long>(nullable: false),
+                    TeacherId = table.Column<long>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
@@ -137,7 +137,7 @@ namespace App.Infrastructure.Migrations
                         column: x => x.TeacherId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -214,7 +214,7 @@ namespace App.Infrastructure.Migrations
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

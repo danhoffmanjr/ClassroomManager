@@ -1,15 +1,27 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Core.Entities
 {
     public class Lesson : BaseEntity
     {
+        [Required]
+        [StringLength(150)]
         public string Title { get; set; }
+
+        [Required]
         public string Summary { get; set; }
+
+        [Required]
+        [StringLength(50)]
         public string Subject { get; set; }
+
+        [Required]
+        [StringLength(50)]
         public string PublishStatus { get; set; }
+
         public string ImageUrl { get; set; }
 
         //Navigation Properties

@@ -7,15 +7,23 @@ namespace App.Core.Entities
 {
     public class Course : BaseEntity
     {
+        [Required]
+        [StringLength(150)]
         public string Title { get; set; }
+
         public string Description { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? StartDate { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
-        public string Status { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string Status { get; set; } = "Active";
 
         //Navigation Properties
         //Parent

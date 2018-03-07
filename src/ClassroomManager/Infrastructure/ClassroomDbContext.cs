@@ -36,6 +36,12 @@ namespace App.Infrastructure
                 .HasOne(sl => sl.Lesson)
                 .WithMany(l => l.StudentLessons)
                 .HasForeignKey(sl => sl.LessonId);
+
+            //modelBuilder.Entity<Lesson>()
+            //    .HasOne(l => l.Teacher)
+            //    .WithMany(t => t.Lessons)
+            //    .HasForeignKey(l => l.TeacherId)
+            //    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

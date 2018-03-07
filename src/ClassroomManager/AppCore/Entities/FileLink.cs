@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Core.Entities
 {
     public class FileLink : BaseEntity
     {
+        [Required]
         public string FileUrl { get; set; }
 
         //Navigation Properties

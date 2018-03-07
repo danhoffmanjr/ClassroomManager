@@ -1,11 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace App.Core.Entities
 {
     public class Student : ContactInfo
     {
+        [Required]
+        [StringLength(25)]
         public string Role { get; set; } = "Student";
+
+        [Required]
+        [StringLength(25)]
         public string GradeLevel { get; set; }
 
         //Navigation Properties

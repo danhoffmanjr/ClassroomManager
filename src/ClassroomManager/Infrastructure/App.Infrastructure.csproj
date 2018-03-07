@@ -5,13 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AppCore\App.Core.csproj" />
+    <Compile Remove="Migrations\20180307134237_Init.cs" />
+    <Compile Remove="Migrations\20180307162447_Migration2.cs" />
+    <Compile Remove="Migrations\20180307162624_Init.cs" />
+    <Compile Remove="Migrations\20180307172203_Annotations Added.cs" />
+    <Compile Remove="Migrations\20180307172727_Annotations Added.cs" />
+    <Compile Remove="Migrations\20180307173316_Annotations Added.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.EntityFrameworkCore">
-      <HintPath>..\..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore\2.0.1\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AppCore\App.Core.csproj" />
   </ItemGroup>
 
 </Project>
