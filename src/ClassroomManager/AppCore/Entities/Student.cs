@@ -1,8 +1,5 @@
-﻿using AppCore.Entities;
-using Newtonsoft.Json;
-using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
 
 namespace App.Core.Entities
 {
@@ -15,6 +12,6 @@ namespace App.Core.Entities
         public long TeacherId { get; set; }
         [JsonIgnore]
         public Teacher Teacher { get; set; }//In the future prob want a many to many relationship with Teachers and Students
-        //need to create a many to many relationship with students and lessons
+        public List<StudentLesson> StudentLessons { get; set; }
     }
 }

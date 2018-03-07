@@ -1,11 +1,9 @@
-﻿using App.Core.Entities;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
-namespace AppCore.Entities
+namespace App.Core.Entities
 {
     public class Course : BaseEntity
     {

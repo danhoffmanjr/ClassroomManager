@@ -17,7 +17,7 @@ namespace App.Core.Entities
         public List<LessonSection> Sections { get; set; }
         public List<FileLink> Attachments { get; set; }
         public List<Assignment> Assignments { get; set; }
-        public List<Student> Students { get; set; }
+        public List<StudentLesson> StudentLessons { get; set; }
 
         public long TeacherId { get; set; }
         [JsonIgnore]

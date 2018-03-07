@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace AppCore.Entities
+namespace App.Core.Entities
 {
     public class BaseEntity
     {
