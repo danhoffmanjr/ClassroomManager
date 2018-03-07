@@ -8,6 +8,11 @@ namespace App.Infrastructure
 {
     public class ClassroomDbContext : DbContext
     {
+        public ClassroomDbContext(DbContextOptions<ClassroomDbContext> options)
+            : base(options)
+        {
+        }
+
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }

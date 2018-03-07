@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ClassroomManager.Data;
 using ClassroomManager.Models;
 using ClassroomManager.Services;
+using App.Infrastructure;
 
 namespace ClassroomManager
 {
@@ -27,6 +28,9 @@ namespace ClassroomManager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<ClassroomDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
