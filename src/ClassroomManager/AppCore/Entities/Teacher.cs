@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Core.Entities
 {
-    public class Teacher : ContactInfo
+    public class Teacher : IdentityUser
     {
 
         [Required]

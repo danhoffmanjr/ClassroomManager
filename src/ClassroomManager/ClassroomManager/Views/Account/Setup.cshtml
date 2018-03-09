@@ -1,0 +1,111 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Account Setup";
+}
+<h2 class="setup">@ViewData["Title"]</h2>
+<div id="setup-form-wrapper">
+    <form id="setup-form" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+        <!-- Form section /Name-->
+        <h3>Step 1</h3>
+        <fieldset class="step">
+            <legend>Tell us who you are</legend>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+                </div>
+                <input asp-for="Email" class="form-control" aria-label="Username" aria-describedby="inputGroup-sizing-default" readonly />
+            </div>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">First Name</span>
+                </div>
+                <input asp-for="FirstName" class="form-control" aria-label="First Name" aria-describedby="inputGroup-sizing-default" required />
+            </div>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Last Name</span>
+                </div>
+                <input asp-for="LastName" class="form-control" aria-label="Last Name" aria-describedby="inputGroup-sizing-default" required />
+            </div>
+        </fieldset>
+        <!-- Form section /Password-->
+        <h3>Step 2</h3>
+        <fieldset class="step">
+            <legend>Let's add a password</legend>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+                </div>
+                <input asp-for="Password" class="form-control" aria-label="Password" aria-describedby="inputGroup-sizing-default" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Confirm Password</span>
+                </div>
+                <input asp-for="ConfirmPassword" class="form-control" aria-label="Confirm Password" aria-describedby="inputGroup-sizing-default" required />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+        </fieldset>
+        <!-- Form section /Course-->
+        <h3>Step 3</h3>
+        <fieldset class="step">
+            <legend>Create a home for all your related lessons</legend>
+            <p class="text-info"><em>You can create additional courses after account setup</em></p>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Course Title</span>
+                </div>
+                <input asp-for="CourseTitle" class="form-control" aria-label="Course Title" aria-describedby="inputGroup-sizing-default" required />
+                <span asp-validation-for="CourseTitle" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
+                </div>
+                <input asp-for="CourseDescription" class="form-control" aria-label="Course Description" aria-describedby="inputGroup-sizing-default" required />
+                <span asp-validation-for="CourseDescription" class="text-danger"></span>
+            </div>
+            <p class="text-info"><em>Start and end dates for your courses are optional</em></p>
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">Start Date</span>
+                        </div>
+                        <input asp-for="StartDate" class="form-control" aria-label="Start Date" aria-describedby="inputGroup-sizing-default" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">End Date</span>
+                        </div>
+                        <input asp-for="EndDate" class="form-control" aria-label="End Date" aria-describedby="inputGroup-sizing-default" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <!-- Form section /Confirm-->
+        <h3>Finish</h3>
+        <fieldset class="step">
+            <legend>Confirmation</legend>
+            <button type="submit" class="btn btn-primary">Ok, Let's get started!</button>
+        </fieldset>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

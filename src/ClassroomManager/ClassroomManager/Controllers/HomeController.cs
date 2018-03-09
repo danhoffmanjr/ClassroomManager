@@ -15,6 +15,18 @@ namespace ClassroomManager.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(string email)
+        {
+            if (string.IsNullOrEmpty(email) == true)
+            {
+                return View();
+            }
+
+            return RedirectToAction("Setup", "Account", new { Email = email });
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
