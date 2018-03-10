@@ -12,6 +12,7 @@ using ClassroomManager.Data;
 using ClassroomManager.Models;
 using ClassroomManager.Services;
 using App.Infrastructure;
+using App.Core.Interfaces;
 
 namespace ClassroomManager
 {
@@ -39,6 +40,13 @@ namespace ClassroomManager
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsyncEF<>));
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("TeacherOnly", policy => policy.RequireClaim("Teacher"));
+            });
 
             services.AddMvc();
         }

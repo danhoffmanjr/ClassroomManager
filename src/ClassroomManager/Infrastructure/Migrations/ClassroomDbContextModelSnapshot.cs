@@ -96,6 +96,8 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<long>("TeacherId");
 
+                    b.Property<string>("TeacherId1");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150);
@@ -106,7 +108,7 @@ namespace App.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("TeacherId1");
 
                     b.ToTable("Courses");
                 });
@@ -176,6 +178,8 @@ namespace App.Infrastructure.Migrations
 
                     b.Property<long>("TeacherId");
 
+                    b.Property<string>("TeacherId1");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(150);
@@ -188,7 +192,7 @@ namespace App.Infrastructure.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("TeacherId1");
 
                     b.ToTable("Lessons");
                 });
@@ -241,15 +245,12 @@ namespace App.Infrastructure.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AddressLine")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("AddressLine2")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<string>("CreatedBy")
@@ -282,7 +283,6 @@ namespace App.Infrastructure.Migrations
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(32);
 
                     b.Property<string>("PhoneNumberOpt")
@@ -293,22 +293,22 @@ namespace App.Infrastructure.Migrations
                         .HasMaxLength(25);
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasMaxLength(15);
 
                     b.Property<long>("TeacherId");
+
+                    b.Property<string>("TeacherId1");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<string>("Zip")
-                        .IsRequired()
                         .HasMaxLength(15);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("TeacherId1");
 
                     b.ToTable("Students");
                 });
@@ -328,68 +328,40 @@ namespace App.Infrastructure.Migrations
 
             modelBuilder.Entity("App.Core.Entities.Teacher", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("AddressLine")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<int>("AccessFailedCount");
 
-                    b.Property<string>("AddressLine2")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("ConcurrencyStamp");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Email");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(150);
+                    b.Property<bool>("EmailConfirmed");
 
-                    b.Property<DateTime>("CreatedDate");
+                    b.Property<bool>("LockoutEnabled");
 
-                    b.Property<DateTime>("DoB");
+                    b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(150);
+                    b.Property<string>("NormalizedEmail");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("NormalizedUserName");
 
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("PasswordHash");
 
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(150);
+                    b.Property<string>("PhoneNumber");
 
-                    b.Property<DateTime?>("ModifiedDate");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(32);
-
-                    b.Property<string>("PhoneNumberOpt")
-                        .HasMaxLength(32);
+                    b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasMaxLength(25);
 
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                    b.Property<string>("SecurityStamp");
 
-                    b.Property<byte[]>("Version")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
+                    b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<string>("Zip")
-                        .IsRequired()
-                        .HasMaxLength(15);
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
@@ -412,8 +384,7 @@ namespace App.Infrastructure.Migrations
                 {
                     b.HasOne("App.Core.Entities.Teacher", "Teacher")
                         .WithMany("Courses")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId1");
                 });
 
             modelBuilder.Entity("App.Core.Entities.FileLink", b =>
@@ -433,8 +404,7 @@ namespace App.Infrastructure.Migrations
 
                     b.HasOne("App.Core.Entities.Teacher", "Teacher")
                         .WithMany("Lessons")
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId1");
                 });
 
             modelBuilder.Entity("App.Core.Entities.LessonSection", b =>
@@ -449,8 +419,7 @@ namespace App.Infrastructure.Migrations
                 {
                     b.HasOne("App.Core.Entities.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TeacherId1");
                 });
 
             modelBuilder.Entity("App.Core.Entities.StudentLesson", b =>

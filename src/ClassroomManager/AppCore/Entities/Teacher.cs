@@ -5,8 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Core.Entities
 {
-    public class Teacher : IdentityUser
+    public class Teacher : ContactInfo
     {
+        [Required]
+        [StringLength(50)]
+        public string User { get; set; }
 
         [Required]
         [StringLength(25)]

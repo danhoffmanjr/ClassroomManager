@@ -14,6 +14,8 @@ using ClassroomManager.Models;
 using ClassroomManager.Models.AccountViewModels;
 using ClassroomManager.Services;
 using System.Text.RegularExpressions;
+using App.Core.Entities;
+using App.Core.Interfaces;
 
 namespace ClassroomManager.Controllers
 {
@@ -23,17 +25,20 @@ namespace ClassroomManager.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IRepositoryAsync<Teacher> _teacherRepositoryAsync;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            IRepositoryAsync<Teacher> teacherRepositoryAsync,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _teacherRepositoryAsync = teacherRepositoryAsync;
             _emailSender = emailSender;
             _logger = logger;
         }
@@ -227,6 +232,21 @@ namespace ClassroomManager.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    //Create new Teacher object
+                    Teacher newTeacher = new Teacher
+                    {
+                        User = user.Id,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        CreatedBy = user.Id,
+                        CreatedDate = DateTime.Now,
+                    };
+                    //Add Teacher
+                    var addTeacher = await _teacherRepositoryAsync.AddAsync(newTeacher);
+                    //Add Claim
+                    var addTeacherClaim = await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Teacher"));
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
