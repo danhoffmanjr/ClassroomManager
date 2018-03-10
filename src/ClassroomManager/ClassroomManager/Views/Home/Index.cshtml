@@ -1,16 +1,19 @@
 ﻿@model HomeViewModel
-@{
-    ViewData["Title"] = "Home Page";
-}
 
 <div class="start">
     <h4>Welcome to Classroom Manager</h4>
     <p><em>add marketing content/design...</em></p>
-    <form asp-action="Index" method="post">
+    <form method="post">
+        <span asp-validation-for="Email" class="text-danger"></span>
         <div class="form-group">
-            <label asp-for="Email">Sign up with your email address:</label>
-            <input asp-for="Email" class="form-control" placeholder="e.g. name@example.com" required />
+            <label asp-for="Email">Sign up with your e-mail address:</label>
+            <input asp-for="Email" class="form-control" placeholder="e.g. name@example.com" type="email" required />
         </div>
         <button type="submit" class="btn btn-primary">Sign up</button>
     </form>
 </div>
+
+@section Scripts {
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.0.min.js"></script>
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

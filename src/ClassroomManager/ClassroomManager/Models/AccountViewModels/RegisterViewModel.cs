@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -38,9 +39,10 @@ namespace ClassroomManager.Models.AccountViewModels
         public DateTime? EndDate { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long (max {1}).", MinimumLength = 7)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        //[Remote("ValidatePassword", "Account")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

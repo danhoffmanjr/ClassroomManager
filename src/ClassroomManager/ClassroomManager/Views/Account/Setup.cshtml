@@ -1,12 +1,12 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Account Setup";
+    ViewData["Title"] = "Easy account setup";
 }
 <h2 class="setup">@ViewData["Title"]</h2>
 <div id="setup-form-wrapper">
     <form id="setup-form" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
         <!-- Form section /Name-->
-        <h3>Step 1</h3>
+        <h3>Name</h3>
         <fieldset class="step">
             <legend>Tell us who you are</legend>
             <div class="input-group mb-3">
@@ -31,15 +31,30 @@
             </div>
         </fieldset>
         <!-- Form section /Password-->
-        <h3>Step 2</h3>
+        <h3>Password</h3>
         <fieldset class="step">
             <legend>Let's add a password</legend>
+            <ul class="text-info">
+                Password requirements:
+                <li>
+                    Minimum of 7 characters (100 max).
+                </li>
+                <li>
+                    Must have one non alphanumeric character (!#$%^&amp;&#64;*()_+}{&quot;:;'?/&gt;.&lt;,).
+                </li>
+                <li>
+                    Must have one lowercase character ('a'-'z').
+                </li>
+                <li>
+                    Must have one uppercase character ('A'-'Z').
+                </li>
+            </ul>
             <span asp-validation-for="Password" class="text-danger"></span>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
                 </div>
-                <input asp-for="Password" class="form-control" aria-label="Password" aria-describedby="inputGroup-sizing-default" required />
+                <input asp-for="Password" pattern="(?=^.{7,100}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!#$%^&amp;&#64;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$" class="form-control" aria-label="Password" aria-describedby="inputGroup-sizing-default" required />
             </div>
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             <div class="input-group mb-3">
@@ -50,7 +65,7 @@
             </div>
         </fieldset>
         <!-- Form section /Course-->
-        <h3>Step 3</h3>
+        <h3>Course</h3>
         <fieldset class="step">
             <legend>Create a home for all your related lessons</legend>
             <p class="text-info"><em>You can create additional courses after account setup</em></p>
@@ -66,7 +81,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-default">Description</span>
                 </div>
-                <input asp-for="CourseDescription" class="form-control" aria-label="Course Description" aria-describedby="inputGroup-sizing-default" required />
+                <textarea asp-for="CourseDescription" class="form-control" aria-label="Course Description" aria-describedby="inputGroup-sizing-default" required></textarea>
             </div>
             <p class="text-info"><em>Start and end dates for your courses are optional</em></p>
             <div class="row">
@@ -98,13 +113,6 @@
         </fieldset>
     </form>
 </div>
-
-
-
-
-
-
-
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")

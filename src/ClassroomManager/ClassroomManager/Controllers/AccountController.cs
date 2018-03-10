@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using ClassroomManager.Models;
 using ClassroomManager.Models.AccountViewModels;
 using ClassroomManager.Services;
+using System.Text.RegularExpressions;
 
 namespace ClassroomManager.Controllers
 {
@@ -240,6 +241,20 @@ namespace ClassroomManager.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [AcceptVerbs("Get", "Post")]
+        public IActionResult ValidatePassword(string password)
+        {
+            var pattern = "(?=^.{7,100}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\\s).*$";
+            Regex reg = new Regex(pattern);
+            Match result = reg.Match(password);
+            if (!result.Success)
+            {
+                return Json("Dan's Test...");
+            }
+
+            return Json(true);
         }
 
         [HttpPost]

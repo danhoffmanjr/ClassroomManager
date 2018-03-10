@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClassroomManager.Models
 {
@@ -6,7 +7,8 @@ namespace ClassroomManager.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Remote("UserAlreadyExistsAsync", "Home")]
+        [Display(Name = "e-mail")]
         public string Email { get; set; }
     }
 }
