@@ -25,14 +25,14 @@ namespace ClassroomManager.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IRepositoryAsync<Teacher> _teacherRepositoryAsync;
+        private readonly ITeacherRepositoryAsync _teacherRepositoryAsync;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IRepositoryAsync<Teacher> teacherRepositoryAsync,
+            ITeacherRepositoryAsync teacherRepositoryAsync,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
@@ -71,7 +71,8 @@ namespace ClassroomManager.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Teacher", new { email = model.Email });
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -254,7 +255,8 @@ namespace ClassroomManager.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl); Old Value
+                    return RedirectToAction("Dashboard", "Teacher", new { user = user.Id });
                 }
                 AddErrors(result);
             }

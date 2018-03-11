@@ -23,6 +23,11 @@ namespace App.Infrastructure
             return await _dbContext.Set<T>().FirstOrDefaultAsync(t => t.Id == id);
         }
 
+        public virtual async Task<T> GetByUserAsync(string user)
+        {
+            return await _dbContext.Set<T>().FirstOrDefaultAsync(u => u.User == user);
+        }
+
         public async Task<List<T>> ListAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();

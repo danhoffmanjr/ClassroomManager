@@ -8,10 +8,6 @@ namespace App.Core.Entities
     public class Teacher : ContactInfo
     {
         [Required]
-        [StringLength(50)]
-        public string User { get; set; }
-
-        [Required]
         [StringLength(25)]
         public string Role { get; set; } = "Teacher";
 

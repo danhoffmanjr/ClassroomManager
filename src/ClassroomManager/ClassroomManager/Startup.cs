@@ -42,6 +42,7 @@ namespace ClassroomManager
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsyncEF<>));
+            services.AddScoped<ITeacherRepositoryAsync, TeacherRepositoryAsyncEF>();
 
             services.AddAuthorization(options =>
             {
