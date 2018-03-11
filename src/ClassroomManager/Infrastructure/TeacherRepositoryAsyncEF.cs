@@ -14,6 +14,13 @@ namespace App.Infrastructure
         {
         }
 
+        public override async Task<Teacher> GetByUserAsync(string user)
+        {
+            return await _dbContext.Teachers
+                .Include(t => t.Courses)
+                .FirstOrDefaultAsync(u => u.User == user);
+        }
+
         public async Task<Teacher> GetByEmailAsync(string email)
         {
             return await _dbContext.Teachers.FirstOrDefaultAsync(e => e.Email == email);

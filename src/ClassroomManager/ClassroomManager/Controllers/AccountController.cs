@@ -26,6 +26,7 @@ namespace ClassroomManager.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ITeacherRepositoryAsync _teacherRepositoryAsync;
+        private readonly IRepositoryAsync<Course> _courseRepositoryAsync;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
@@ -33,12 +34,14 @@ namespace ClassroomManager.Controllers
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ITeacherRepositoryAsync teacherRepositoryAsync,
-            IEmailSender emailSender,
+            IRepositoryAsync<Course> courseRepositoryAsync,
+        IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _teacherRepositoryAsync = teacherRepositoryAsync;
+            _courseRepositoryAsync = courseRepositoryAsync;
             _emailSender = emailSender;
             _logger = logger;
         }
@@ -248,6 +251,23 @@ namespace ClassroomManager.Controllers
                     var addTeacher = await _teacherRepositoryAsync.AddAsync(newTeacher);
                     //Add Claim
                     var addTeacherClaim = await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Teacher"));
+
+                    //Get Teacher just added
+                    var currentTeacher = await _teacherRepositoryAsync.GetByUserAsync(user.Id);
+                    //Create new Course object
+                    Course newCourse = new Course
+                    {
+                        User = user.Id,
+                        TeacherId = currentTeacher.Id,
+                        Title = model.CourseTitle,
+                        Description = model.CourseDescription,
+                        StartDate = model.StartDate,
+                        EndDate = model.EndDate,
+                        CreatedBy = user.Id,
+                        CreatedDate = DateTime.Now,
+                    };
+                    //Add Course
+                    var addCourse = await _courseRepositoryAsync.AddAsync(newCourse);
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
