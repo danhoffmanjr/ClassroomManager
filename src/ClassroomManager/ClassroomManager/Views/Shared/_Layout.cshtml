@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using ClassroomManager.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,7 +42,19 @@
         </div>
     </nav>
     <div class="container-fluid">
-            @RenderBody()
+        @if (SignInManager.IsSignedIn(User))
+        {
+        <nav id="menu">
+            <header>MENU</header>
+            <ul>
+                <li><a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@UserManager.GetUserId(User)">Dashboard</a></li>
+                <li><a asp-action="Index">Lessons</a></li>
+                <li><a asp-action="Index">Students</a></li>
+                <li><a asp-action="Index">Files</a></li>
+            </ul>
+        </nav>
+        }
+        @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Classroom Manager</p>

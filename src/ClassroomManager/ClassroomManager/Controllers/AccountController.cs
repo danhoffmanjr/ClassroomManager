@@ -264,7 +264,7 @@ namespace ClassroomManager.Controllers
                         StartDate = model.StartDate,
                         EndDate = model.EndDate,
                         CreatedBy = user.Id,
-                        CreatedDate = DateTime.Now,
+                        CreatedDate = DateTime.Now
                     };
                     //Add Course
                     var addCourse = await _courseRepositoryAsync.AddAsync(newCourse);

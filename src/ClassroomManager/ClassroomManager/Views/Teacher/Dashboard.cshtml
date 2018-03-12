@@ -1,50 +1,46 @@
 ﻿@model App.Core.Entities.Teacher
-<nav id="menu">
-    <header>MENU</header>
-    <ul>
-        <li><a asp-action="Index">Dashboard</a></li>
-        <li><a asp-action="Index">Lessons</a></li>
-        <li><a asp-action="Index">Students</a></li>
-        <li><a asp-action="Index">Files</a></li>
-    </ul>
-</nav>
 <main id="panel">
     <h2 class="title-bar">@Html.DisplayFor(model => model.FirstName)'s Dashboard</h2>
-    <section id="profile">
-        <h3>Profile</h3>
-        <p>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id })</p>
-        <p><strong>@Html.DisplayNameFor(model => model.User) Id:</strong> @Html.DisplayFor(model => model.User)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.Role):</strong> @Html.DisplayFor(model => model.Role)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.FirstName):</strong> @Html.DisplayFor(model => model.FirstName)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.LastName):</strong> @Html.DisplayFor(model => model.LastName)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.AddressLine):</strong> @Html.DisplayFor(model => model.AddressLine)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.AddressLine2):</strong> @Html.DisplayFor(model => model.AddressLine2)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.City):</strong> @Html.DisplayFor(model => model.City)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.State):</strong> @Html.DisplayFor(model => model.State)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.Zip):</strong> @Html.DisplayFor(model => model.Zip)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.PhoneNumberOpt):</strong> @Html.DisplayFor(model => model.PhoneNumberOpt)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.Email):</strong> @Html.DisplayFor(model => model.Email)</p>
-        <p><strong>@Html.DisplayNameFor(model => model.DoB):</strong> @Html.DisplayFor(model => model.DoB)</p>
-        <p><strong>Teacher @Html.DisplayNameFor(model => model.Id):</strong> @Html.DisplayFor(model => model.Id)</p>
-        <p><strong>Joined:</strong> @Html.DisplayFor(model => model.CreatedDate)</p>
-    </section>
-    <section id="courses">
-        <h3>Courses</h3>
-        <a asp-action="Create">Create New Course</a>
-        @for (var i = 0; i < Model.Courses.Count; i++)
+    <div class="flexPanels">
+        <section id="profile">
+            <h3>Profile</h3>
+            <p>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id })</p>
+            <p><strong>@Html.DisplayNameFor(model => model.User) Id:</strong> @Html.DisplayFor(model => model.User)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Role):</strong> @Html.DisplayFor(model => model.Role)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.FirstName):</strong> @Html.DisplayFor(model => model.FirstName)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.LastName):</strong> @Html.DisplayFor(model => model.LastName)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.AddressLine):</strong> @Html.DisplayFor(model => model.AddressLine)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.AddressLine2):</strong> @Html.DisplayFor(model => model.AddressLine2)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.City):</strong> @Html.DisplayFor(model => model.City)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.State):</strong> @Html.DisplayFor(model => model.State)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Zip):</strong> @Html.DisplayFor(model => model.Zip)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PhoneNumberOpt):</strong> @Html.DisplayFor(model => model.PhoneNumberOpt)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Email):</strong> @Html.DisplayFor(model => model.Email)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.DoB):</strong> @Html.DisplayFor(model => model.DoB)</p>
+            <p><strong>Teacher @Html.DisplayNameFor(model => model.Id):</strong> @Html.DisplayFor(model => model.Id)</p>
+            <p><strong>Joined:</strong> @Html.DisplayFor(model => model.CreatedDate)</p>
+        </section>
+        <section id="courses">
+            <h3>Courses</h3>
+            <a asp-action="Create" asp-controller="Course" asp-route-teacherId="@Model.Id" asp-route-userId="@Model.User">Create New Course</a>
+            @for (var i = 0; i < Model.Courses.Count; i++)
         {
-            <p><strong>Course Id: </strong>@Model.Courses[i].Id</p>
-            <p><strong>Title: </strong>@Model.Courses[i].Title</p>
-            <p><strong>Description: </strong>@Model.Courses[i].Description</p>
-            <p><strong>Start Date: </strong>@Model.Courses[i].StartDate</p>
-            <p><strong>End Date: </strong>@Model.Courses[i].EndDate</p>
-            <p><strong>Realated Teacher Id: </strong>@Model.Courses[i].TeacherId</p>
-            <p><strong>Created By: </strong>@Model.Courses[i].User</p>
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = @Model.Courses[i].Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = @Model.Courses[i].Id })
-            </p>
-        }
-    </section>
+            <section class="course">
+                <p><strong>Course Id: </strong>@Model.Courses[i].Id</p>
+                <p><strong>Title: </strong>@Model.Courses[i].Title</p>
+                <p><strong>Description: </strong>@Model.Courses[i].Description</p>
+                <p><strong>Start Date: </strong>@Model.Courses[i].StartDate</p>
+                <p><strong>End Date: </strong>@Model.Courses[i].EndDate</p>
+                <p><strong>Realated Teacher Id: </strong>@Model.Courses[i].TeacherId</p>
+                <p><strong>Created By: </strong>@Model.Courses[i].User</p>
+                <p>Last updated by @Model.Courses[i].ModifiedBy on @Model.Courses[i].ModifiedDate</p>
+                <p>
+                    <a asp-action="Edit" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Edit</a> |
+                    <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Delete</a>
+                </p>
+            </section>
+    }
+        </section>
+    </div>
 </main>

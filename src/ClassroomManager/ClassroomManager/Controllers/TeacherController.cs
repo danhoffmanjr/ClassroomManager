@@ -23,12 +23,12 @@ namespace App.Web.Controllers
         // GET: Teacher
         public async Task<ActionResult> Index(string email)
         {
+            //TODO: add condition to send user to home index if email is null
             var user = await _teacherRepositoryAsync.GetByEmailAsync(email);
-
             return RedirectToAction("Dashboard", new { user = user.User });
         }
 
-        // GET: Teacher/Dashboard/#
+        // GET: Teacher/Dashboard/UserIdString(same as Identity Id)
         public async Task<ActionResult> Dashboard(string user)
         {
             var teacher = await _teacherRepositoryAsync.GetByUserAsync(user);
@@ -36,68 +36,22 @@ namespace App.Web.Controllers
             return View(teacher);
         }
 
-        // GET: Teacher/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Teacher/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         // GET: Teacher/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            return View(await _teacherRepositoryAsync.GetByIdAsync(id));
         }
 
         // POST: Teacher/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(Teacher profileToUpdate, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                await _teacherRepositoryAsync.UpdateAsync(profileToUpdate);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Teacher/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Teacher/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Dashboard", new { user = profileToUpdate.User });
             }
             catch
             {

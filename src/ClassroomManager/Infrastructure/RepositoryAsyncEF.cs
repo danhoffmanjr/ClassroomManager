@@ -18,7 +18,7 @@ namespace App.Infrastructure
             _dbContext = dbContext;
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(long id)
         {
             return await _dbContext.Set<T>().FirstOrDefaultAsync(t => t.Id == id);
         }

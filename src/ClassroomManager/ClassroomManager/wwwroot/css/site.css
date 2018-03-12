@@ -36,3 +36,25 @@ h2.setup {
         width: 40vw;
     }
 }
+
+
+.title-bar {
+    border: 1px solid grey;
+}
+
+.course {
+    margin: .5rem 0;
+    padding: 1rem;
+    border: 1px solid grey;
+}
+
+.flexPanels {
+    display: flex;
+    justify-content: center;
+}
+
+#courses, #profile {
+    padding: 1rem;
+    flex: 1;
+    border: 1px solid blue;
+}
