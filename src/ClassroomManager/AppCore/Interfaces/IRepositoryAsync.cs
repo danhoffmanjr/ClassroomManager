@@ -11,7 +11,6 @@ namespace App.Core.Interfaces
         Task<T> GetByIdAsync(long id);
         Task<T> GetByUserAsync(string user);
         Task<List<T>> ListAllAsync();
-        Task<List<T>> ListAsync(ISpecification<T> spec);
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
