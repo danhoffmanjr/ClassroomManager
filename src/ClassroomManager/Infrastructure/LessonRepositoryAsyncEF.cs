@@ -23,6 +23,16 @@ namespace App.Infrastructure
                 .FirstOrDefaultAsync(u => u.User == user);
         }
 
+        public override async Task<Lesson> GetByIdAsync(long id)
+        {
+            return await _dbContext.Lessons
+                .Include(l => l.Sections)
+                .Include(s => s.StudentLessons)
+                .Include(a => a.Assignments)
+                .Include(f => f.Attachments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
         public async Task<List<Lesson>> ListByUserAsync(string user)
         {
             return await _dbContext.Lessons

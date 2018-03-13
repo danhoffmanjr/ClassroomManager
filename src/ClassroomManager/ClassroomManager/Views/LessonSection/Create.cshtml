@@ -1,7 +1,7 @@
 ﻿@model ClassroomManager.Models.LessonViewModel
 
 @{
-    int enumValue = Convert.ToInt32(Model.Lesson.PublishStatus);
+    //int enumValue = Convert.ToInt32(Model.Lesson.PublishStatus);
 }
 <main id="panel">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -23,8 +23,7 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade" id="lesson" role="tabpanel" aria-labelledby="lesson-tab">
-            <label asp-for="Lesson.PublishStatus"></label>
-            @Enum.GetName(typeof(PublishStatusEnum), enumValue)
+            <input asp-for="Lesson.PublishStatus" class="form-control" readonly />
             <input asp-for="Lesson.Id" class="form-control" readonly />
             <input asp-for="Lesson.User" class="form-control" readonly />
             <input asp-for="Lesson.Title" class="form-control" readonly />
@@ -35,7 +34,17 @@
             <hr />
             <div class="row">
                 <div class="col-md-4">
-                    <form asp-action="Create">
+                    @if (Model.Sections != null && Model.Sections.Count > 0)
+                    {
+                        for (var i = 0; i < Model.Sections.Count; i++)
+                        {
+                    <div class="lesson-sections">
+                        <p><strong>Course Id: </strong>@Model.Sections[i].SubTitle</p>
+                    </div>
+                        }
+                    }
+
+                    <form asp-action="Create" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input asp-for="Section.LessonId" class="form-control" readonly />
                         <input asp-for="Section.User" class="form-control" readonly />
@@ -46,7 +55,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Section.Content" class="control-label"></label>
-                            <input asp-for="Section.Content" class="form-control" />
+                            <textarea asp-for="Section.Content" class="form-control"></textarea>
                             <span asp-validation-for="Section.Content" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -55,9 +64,9 @@
                             <span asp-validation-for="Section.PublishStatus" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Section.ImageUrl" class="control-label"></label>
-                            <input asp-for="Section.ImageUrl" class="form-control" />
-                            <span asp-validation-for="Section.ImageUrl" class="text-danger"></span>
+                            <label asp-for="Section.FileToUpload" class="control-label"></label>
+                            <input type="file" asp-for="Section.FileToUpload" class="form-control" />
+                            <span asp-validation-for="Section.FileToUpload" class="text-danger"></span>
                         </div>
                         <input type="hidden" asp-for="Section.Id" class="form-control" />
                         <input type="hidden" asp-for="Section.CreatedDate" class="form-control" />
@@ -66,7 +75,7 @@
                         <input type="hidden" asp-for="Section.ModifiedBy" class="form-control" />
                         <input type="hidden" asp-for="Section.Version" class="form-control" />
                         <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Add Section" class="btn btn-default" />
                         </div>
                     </form>
                 </div>

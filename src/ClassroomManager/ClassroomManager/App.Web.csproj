@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Infrastructure\App.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\blob\" />
+  </ItemGroup>
+
 </Project>

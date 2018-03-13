@@ -13,6 +13,8 @@ using ClassroomManager.Models;
 using ClassroomManager.Services;
 using App.Infrastructure;
 using App.Core.Interfaces;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace ClassroomManager
 {
@@ -40,6 +42,10 @@ namespace ClassroomManager
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddSingleton<IFileProvider>(
+                new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/blob")));
 
             services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsyncEF<>));
             services.AddScoped<ITeacherRepositoryAsync, TeacherRepositoryAsyncEF>();

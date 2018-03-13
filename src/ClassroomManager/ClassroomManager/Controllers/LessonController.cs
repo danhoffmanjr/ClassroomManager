@@ -39,15 +39,6 @@ namespace App.Web.Controllers
                 TeacherId = teacherId,
                 User = userId,
                 CourseId = courseId
-                //Sections = new List<LessonSection>
-                //{
-                //    new LessonSection
-                //    {
-                //        SubTitle = "",
-                //        Content = "",
-                //        PublishStatus = "Draft"
-                //    }
-                //}
             };
             return View(newLesson);
         }

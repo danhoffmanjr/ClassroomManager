@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace App.Core.Entities
 {
@@ -18,7 +20,11 @@ namespace App.Core.Entities
         [Display(Name = "Section Publish Status")]
         public string PublishStatus { get; set; }
 
+        [Display(Name = "Upload Image/File")]
         public string ImageUrl { get; set; }
+
+        [NotMapped]
+        public IFormFile FileToUpload { get; set; }
 
         //Navigation Properties
         //Parent
