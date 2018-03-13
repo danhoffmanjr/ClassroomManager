@@ -1,5 +1,7 @@
 ﻿using App.Core.Entities;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClassroomManager.Models
 {
@@ -11,5 +13,7 @@ namespace ClassroomManager.Models
         public long CourseId { get; set; }
         public string UserId { get; set; }
         public List<LessonSection> Sections { get; set; }
+        [Display(Name="Upload Image/File")]
+        public IFormFile FileToUpload { get; set; }
     }
 }

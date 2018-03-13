@@ -1,4 +1,5 @@
-﻿var form = $("#setup-form").show();
+﻿//JS for jQuery.Steps
+var form = $("#setup-form").show();
 
 form.steps({
     headerTag: "h3",
@@ -27,3 +28,4 @@ form.steps({
         }
     }
 });
+//END JS for jQuery.Steps

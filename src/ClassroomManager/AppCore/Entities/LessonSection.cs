@@ -23,9 +23,6 @@ namespace App.Core.Entities
         [Display(Name = "Upload Image/File")]
         public string ImageUrl { get; set; }
 
-        [NotMapped]
-        public IFormFile FileToUpload { get; set; }
-
         //Navigation Properties
         //Parent
         public long LessonId { get; set; }

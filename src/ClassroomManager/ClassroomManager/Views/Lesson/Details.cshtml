@@ -1,0 +1,49 @@
+﻿@model App.Core.Entities.Lesson
+
+@{
+    ViewData["Title"] = "Details";
+}
+<main id="panel">
+    <h2>@Html.DisplayFor(model => model.Title)</h2>
+
+    <div>
+        <h4>Lesson Details</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Summary)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Summary)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Subject)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Subject)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PublishStatus)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PublishStatus)
+            </dd>
+        </dl>
+    </div>
+    <div id="accordion">
+        @foreach (var section in Model.Sections)
+        {
+            <h3>@Html.DisplayFor(item => section.SubTitle)</h3>
+            <div>
+                @Html.Raw(section.Content)
+            </div>
+        }
+    </div>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</main>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

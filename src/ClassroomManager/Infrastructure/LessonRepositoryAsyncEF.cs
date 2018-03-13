@@ -16,6 +16,8 @@ namespace App.Infrastructure
         public override async Task<Lesson> GetByUserAsync(string user)
         {
             return await _dbContext.Lessons
+                .Include(c => c.Course)
+                .Include(t => t.Teacher)
                 .Include(l => l.Sections)
                 .Include(s => s.StudentLessons)
                 .Include(a => a.Assignments)
@@ -26,6 +28,8 @@ namespace App.Infrastructure
         public override async Task<Lesson> GetByIdAsync(long id)
         {
             return await _dbContext.Lessons
+                .Include(c => c.Course)
+                .Include(t => t.Teacher)
                 .Include(l => l.Sections)
                 .Include(s => s.StudentLessons)
                 .Include(a => a.Assignments)
@@ -36,6 +40,8 @@ namespace App.Infrastructure
         public async Task<List<Lesson>> ListByUserAsync(string user)
         {
             return await _dbContext.Lessons
+                .Include(c => c.Course)
+                .Include(t => t.Teacher)
                 .Include(l => l.Sections)
                 .Include(s => s.StudentLessons)
                 .Include(a => a.Assignments)

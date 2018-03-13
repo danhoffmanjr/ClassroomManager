@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App.Core.Entities;
 using App.Core.Interfaces;
+using App.Web.Models;
 using ClassroomManager.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +23,36 @@ namespace App.Web.Controllers
         // GET: Lesson
         public async Task<ActionResult> Index(string user)
         {
-            return View(await _lessonRepositoryAsync.ListByUserAsync(user));
+            List<Lesson> LessonsList = await _lessonRepositoryAsync.ListByUserAsync(user);
+            if (LessonsList == null || LessonsList.Count <= 0)
+            {
+                LessonsIndexViewModel model = new LessonsIndexViewModel
+                {
+                    Lesson = new Lesson
+                    {
+                        User = user
+                    },
+                    Lessons = LessonsList
+                };
+
+                return View(model);
+            }
+            else
+            {
+                LessonsIndexViewModel model = new LessonsIndexViewModel
+                {
+                    Lesson = LessonsList[0],
+                    Lessons = LessonsList
+                };
+
+                return View(model);
+            }
         }
 
         // GET: Lesson/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            return View(await _lessonRepositoryAsync.GetByIdAsync(id));
         }
 
         // GET: Lesson/Create

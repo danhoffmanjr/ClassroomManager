@@ -28,13 +28,14 @@
             {
                 <section class="course">
                     <p><strong>Course Id: </strong>@Model.Courses[i].Id</p>
+                    <p><strong>Status: </strong>@Model.Courses[i].Status</p>
                     <p><strong>Title: </strong>@Model.Courses[i].Title</p>
-                    <p><strong>Description: </strong>@Model.Courses[i].Description</p>
+                    <p><strong>Description: </strong>@Html.Raw(Model.Courses[i].Description)</p>
                     <p><strong>Start Date: </strong>@Model.Courses[i].StartDate</p>
                     <p><strong>End Date: </strong>@Model.Courses[i].EndDate</p>
-                    <p><strong>Realated Teacher Id: </strong>@Model.Courses[i].TeacherId</p>
-                    <p><strong>Created By: </strong>@Model.Courses[i].User</p>
-                    <p>Last updated by @Model.Courses[i].ModifiedBy on @Model.Courses[i].ModifiedDate</p>
+                    @*<p><strong>Realated Teacher Id: </strong>@Model.Courses[i].TeacherId</p>
+                        <p><strong>Created By: </strong>@Model.Courses[i].User</p>
+                        <p>Last updated by @Model.Courses[i].ModifiedBy on @Model.Courses[i].ModifiedDate</p>*@
                     <p>
                         <a asp-action="Edit" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Edit</a> |
                         <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Delete</a> |
@@ -43,9 +44,10 @@
                     <section class="child-lessons">
                         @if (Model.Courses[i].Lessons != null)
                         {
+                            <h5>Lessons in this course:</h5>
                             foreach (var lesson in Model.Courses[i].Lessons)
                             {
-                                <p><strong>Lesson Name:</strong> @Html.DisplayFor(modelItem => lesson.Title)</p>
+                            <p><a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.Id">@Html.DisplayFor(modelItem => lesson.Title)</a></p>
                             }
                         }
                     </section>

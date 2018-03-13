@@ -100,3 +100,26 @@ h2.setup {
     flex: 1;
     border: 1px solid blue;
 }
+
+/*Lesson Section*/
+.lesson-sections {
+    padding: 5px;
+    background-color: lightgoldenrodyellow;
+    border: 1px dashed blue;
+}
+
+.fa-edit, .fa-trash-alt {
+    display: inline-block;
+    padding: 1px;
+    margin: 1px 0 0 3px;
+    float: right;
+    color: #808080;
+}
+
+.fa-edit:hover {
+    color: darkgreen;
+}
+
+.fa-trash-alt:hover {
+    color: darkred;
+}

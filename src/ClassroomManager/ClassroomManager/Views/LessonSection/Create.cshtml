@@ -33,21 +33,20 @@
             <h2>Create New Section</h2>
             <hr />
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     @if (Model.Sections != null && Model.Sections.Count > 0)
                     {
-                        for (var i = 0; i < Model.Sections.Count; i++)
-                        {
-                    <div class="lesson-sections">
-                        <p><strong>Course Id: </strong>@Model.Sections[i].SubTitle</p>
-                    </div>
-                        }
+                        <div class="lesson-sections">
+                            <h5>Sections created for this lesson:</h5>
+                            @for (var i = 0; i < Model.Sections.Count; i++)
+                            {
+                                <p><strong>Section @(i + 1): </strong>@Model.Sections[i].SubTitle</p>
+                            }
+                        </div>
                     }
 
                     <form asp-action="Create" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input asp-for="Section.LessonId" class="form-control" readonly />
-                        <input asp-for="Section.User" class="form-control" readonly />
                         <div class="form-group">
                             <label asp-for="Section.SubTitle" class="control-label"></label>
                             <input asp-for="Section.SubTitle" class="form-control" />
@@ -55,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Section.Content" class="control-label"></label>
-                            <textarea asp-for="Section.Content" class="form-control"></textarea>
+                            <textarea asp-for="Section.Content" class="form-control tinyMCE"></textarea>
                             <span asp-validation-for="Section.Content" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -63,11 +62,13 @@
                             <select asp-for="Section.PublishStatus" asp-items="Html.GetEnumSelectList<PublishStatusEnum>()" class="form-control"></select>
                             <span asp-validation-for="Section.PublishStatus" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Section.FileToUpload" class="control-label"></label>
-                            <input type="file" asp-for="Section.FileToUpload" class="form-control" />
-                            <span asp-validation-for="Section.FileToUpload" class="text-danger"></span>
-                        </div>
+                        @*<div class="form-group">
+                                <label asp-for="FileToUpload" class="control-label"></label>
+                                <input type="file" asp-for="FileToUpload" class="form-control" />
+                                <span asp-validation-for="FileToUpload" class="text-danger"></span>
+                            </div>*@
+                        <input type="hidden" asp-for="Section.LessonId" class="form-control" />
+                        <input type="hidden" asp-for="Section.User" class="form-control" />
                         <input type="hidden" asp-for="Section.Id" class="form-control" />
                         <input type="hidden" asp-for="Section.CreatedDate" class="form-control" />
                         <input type="hidden" asp-for="Section.ModifiedDate" class="form-control" />
@@ -75,9 +76,20 @@
                         <input type="hidden" asp-for="Section.ModifiedBy" class="form-control" />
                         <input type="hidden" asp-for="Section.Version" class="form-control" />
                         <div class="form-group">
-                            <input type="submit" value="Add Section" class="btn btn-default" />
+                            @if (Model.Sections != null && Model.Sections.Count > 0)
+                            {
+                                <input type="submit" id="add-section" name="add-section" value="Add Another Section" class="btn btn-default" />
+                            }
+                            else
+                            {<input type="submit" id="add-section" name="add-section" value="Add Section" class="btn btn-primary" />}
                         </div>
                     </form>
+                    @if (Model.Sections != null && Model.Sections.Count > 0)
+                    {
+                        <form asp-action="Create" asp-controller="Students">
+                            <input type="submit" id="continue" name="continue" value="Continue to Students" class="btn btn-primary" />
+                        </form>
+                    }
                 </div>
             </div>
         </div>

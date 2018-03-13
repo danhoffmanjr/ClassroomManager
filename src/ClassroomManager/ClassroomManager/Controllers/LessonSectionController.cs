@@ -39,7 +39,7 @@ namespace App.Web.Controllers
         {
             Lesson currentLesson = await _lessonRepositoryAsync.GetByIdAsync(id);
 
-            if (currentLesson.Sections.Count > 0)
+            if (currentLesson.Sections != null && currentLesson.Sections.Count > 0)
             {
                 LessonViewModel model = new LessonViewModel
                 {
@@ -85,25 +85,26 @@ namespace App.Web.Controllers
                     CreatedDate = DateTime.Now,
                     SubTitle = newSection.Section.SubTitle,
                     Content = newSection.Section.Content,
-                    PublishStatus = newSection.Section.PublishStatus,
-                    ImageUrl = newSection.Section.FileToUpload.FileName.ToString()
+                    PublishStatus = newSection.Section.PublishStatus
                 };
 
-                if (newSection.Section.FileToUpload != null || newSection.Section.FileToUpload.Length > 0)
-                {
-                    var path = Path.Combine(
-                            Directory.GetCurrentDirectory(), "wwwroot\blob",
-                            newSection.Section.FileToUpload.FileName);
+                //if (newSection.FileToUpload != null && newSection.FileToUpload.Length > 0)
+                //{
+                //    section.ImageUrl = newSection.FileToUpload.FileName.ToString();
 
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await newSection.Section.FileToUpload.CopyToAsync(stream);
-                    }
-                }
+                //    var path = Path.Combine(
+                //            Directory.GetCurrentDirectory(), "wwwroot/blob",
+                //            newSection.FileToUpload.FileName);
+
+                //    using (var stream = new FileStream(path, FileMode.Create))
+                //    {
+                //        await newSection.FileToUpload.CopyToAsync(stream);
+                //    }
+                //}
 
                 await _sectionRepositoryAsync.AddAsync(section);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "LessonSection", new { id = section.LessonId });
             }
             catch(Exception ex)
             {

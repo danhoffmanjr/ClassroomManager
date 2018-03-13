@@ -24,13 +24,13 @@
         </li>
     </ul>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <form asp-action="Create">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="User" class="form-control" readonly />
-                <input asp-for="TeacherId" class="form-control" readonly />
-                <input type="hidden" asp-for="CreatedBy" class="form-control" />
-                <input asp-for="CourseId" class="form-control" readonly />
+                <input type="hidden" asp-for="User" class="form-control" readonly />
+                <input type="hidden" asp-for="TeacherId" class="form-control" readonly />
+                <input type="hidden"  asp-for="CreatedBy" class="form-control" />
+                <input type="hidden" asp-for="CourseId" class="form-control" readonly />
                 <input type="hidden" asp-for="CreatedDate" class="form-control" />
                 <div class="form-group">
                     <label asp-for="Title" class="control-label"></label>

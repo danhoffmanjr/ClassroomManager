@@ -9,12 +9,12 @@ namespace ClassroomManager.Models
     public enum PublishStatusEnum
     {
         [Display(Name ="Draft")]
-        Draft,
+        Draft = 1,
         [Display(Name = "Pending")]
-        Pending,
+        Pending = 2,
         [Display(Name = "Publish")]
-        Publish,
+        Publish = 0,
         [Display(Name = "Private")]
-        Private
+        Private = 3
     }
 }
