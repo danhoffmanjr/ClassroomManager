@@ -13,11 +13,13 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
         <link rel="stylesheet" href="~/css/jquery.steps.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
         <link rel="stylesheet" href="~/css/jquery.steps.css" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
@@ -42,19 +44,19 @@
         </div>
     </nav>
     <div class="container-fluid">
-        @if (SignInManager.IsSignedIn(User))
-        {
+            @if (SignInManager.IsSignedIn(User))
+    {
         <nav id="menu">
-            <header>MENU</header>
+            <header><i class="fas fa-bars"></i> MENU</header>
             <ul>
-                <li><a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@UserManager.GetUserId(User)">Dashboard</a></li>
-                <li><a asp-action="Index">Lessons</a></li>
-                <li><a asp-action="Index">Students</a></li>
-                <li><a asp-action="Index">Files</a></li>
+                <li><i class="fas fa-home"></i> <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@UserManager.GetUserId(User)">Dashboard</a></li>
+                <li><i class="fas fa-book"></i> <a asp-action="Index" asp-controller="Lesson" asp-route-user="@UserManager.GetUserId(User)">Lessons</a></li>
+                <li><i class="fas fa-users"></i> <a asp-action="Index">Students</a></li>
+                <li><i class="fas fa-paperclip"></i> <a asp-action="Index">Files</a></li>
             </ul>
         </nav>
-        }
-        @RenderBody()
+}
+            @RenderBody()
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - Classroom Manager</p>

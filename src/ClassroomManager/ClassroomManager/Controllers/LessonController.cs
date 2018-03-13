@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Core.Entities;
+using App.Core.Interfaces;
+using ClassroomManager.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +12,17 @@ namespace App.Web.Controllers
 {
     public class LessonController : Controller
     {
-        // GET: Lesson
-        public ActionResult Index()
+        private readonly ILessonRepositoryAsync _lessonRepositoryAsync;
+
+        public LessonController(ILessonRepositoryAsync lessonRepositoryAsync)
         {
-            return View();
+            _lessonRepositoryAsync = lessonRepositoryAsync;
+        }
+
+        // GET: Lesson
+        public async Task<ActionResult> Index(string user)
+        {
+            return View(await _lessonRepositoryAsync.ListByUserAsync(user));
         }
 
         // GET: Lesson/Details/5
@@ -22,21 +32,50 @@ namespace App.Web.Controllers
         }
 
         // GET: Lesson/Create
-        public ActionResult Create()
+        public ActionResult Create(long teacherId, string userId, long courseId)
         {
-            return View();
+            Lesson newLesson = new Lesson
+            {
+                TeacherId = teacherId,
+                User = userId,
+                CourseId = courseId
+                //Sections = new List<LessonSection>
+                //{
+                //    new LessonSection
+                //    {
+                //        SubTitle = "",
+                //        Content = "",
+                //        PublishStatus = "Draft"
+                //    }
+                //}
+            };
+            return View(newLesson);
         }
 
         // POST: Lesson/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Lesson data, IFormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                Lesson newLesson = new Lesson
+                {
+                    User = data.User,
+                    TeacherId = data.TeacherId,
+                    CourseId = data.CourseId,
+                    Title = data.Title,
+                    Summary = data.Summary,
+                    Subject = data.Subject,
+                    PublishStatus = data.PublishStatus,
+                    CreatedBy = data.User,
+                    CreatedDate = DateTime.Now
+                };
+                await _lessonRepositoryAsync.AddAsync(newLesson);
 
-                return RedirectToAction(nameof(Index));
+                long newId = await _lessonRepositoryAsync.GetLastIdAsync();
+
+                return RedirectToAction("Create", "LessonSection", new { id = newId});
             }
             catch
             {

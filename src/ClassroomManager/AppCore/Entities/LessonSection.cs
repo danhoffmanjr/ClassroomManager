@@ -7,6 +7,7 @@ namespace App.Core.Entities
     {
         [Required]
         [StringLength(150)]
+        [Display(Name ="Section Header")]
         public string SubTitle { get; set; }
 
         [Required]
@@ -14,6 +15,7 @@ namespace App.Core.Entities
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Section Publish Status")]
         public string PublishStatus { get; set; }
 
         public string ImageUrl { get; set; }

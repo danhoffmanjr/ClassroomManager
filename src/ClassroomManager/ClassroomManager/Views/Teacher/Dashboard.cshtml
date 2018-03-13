@@ -37,7 +37,8 @@
                 <p>Last updated by @Model.Courses[i].ModifiedBy on @Model.Courses[i].ModifiedDate</p>
                 <p>
                     <a asp-action="Edit" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Edit</a> |
-                    <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Delete</a>
+                    <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Delete</a> |
+                    <a asp-action="Create" asp-controller="Lesson" asp-route-teacherId="@Model.Courses[i].TeacherId" asp-route-userId="@Model.Courses[i].User" asp-route-courseId="@Model.Courses[i].Id">Create Lesson</a>
                 </p>
             </section>
     }

@@ -52,5 +52,10 @@ namespace App.Infrastructure
             _dbContext.Set<T>().Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
+
+        public virtual async Task<long> GetLastIdAsync()
+        {
+            return await _dbContext.Set<T>().MaxAsync(p => p.Id);
+        }
     }
 }

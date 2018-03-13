@@ -9,6 +9,7 @@ namespace App.Core.Entities
     {
         [Required]
         [StringLength(150)]
+        [Display(Name = "Lesson Name")]
         public string Title { get; set; }
 
         [Required]
@@ -20,6 +21,7 @@ namespace App.Core.Entities
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Publish Status")]
         public string PublishStatus { get; set; }
 
         public string ImageUrl { get; set; }
