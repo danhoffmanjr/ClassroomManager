@@ -19,6 +19,7 @@ namespace App.Infrastructure
             return await _dbContext.Teachers
                 .Include(t => t.Courses)
                 .Include(l => l.Lessons)
+                .Include(s => s.Students)
                 .FirstOrDefaultAsync(u => u.User == user);
         }
 

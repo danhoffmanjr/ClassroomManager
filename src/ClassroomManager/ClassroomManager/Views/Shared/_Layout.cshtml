@@ -70,7 +70,7 @@
             <ul>
                 <li><span class="icon"><i class="fas fa-home"></i></span> <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@UserManager.GetUserId(User)">Dashboard</a></li>
                 <li><span class="icon"><i class="fas fa-book"></i></span> <a asp-action="Index" asp-controller="Lesson" asp-route-user="@UserManager.GetUserId(User)">Lessons</a></li>
-                <li><span class="icon"><i class="fas fa-users"></i></span> <a asp-action="Index">Students</a></li>
+                <li><span class="icon"><i class="fas fa-users"></i></span> <a asp-action="Index" asp-controller="Student" asp-route-user="@UserManager.GetUserId(User)">Students</a></li>
                 <li><span class="icon"><i class="fas fa-paperclip"></i></span> <a asp-action="Index">Files</a></li>
             </ul>
         </nav>

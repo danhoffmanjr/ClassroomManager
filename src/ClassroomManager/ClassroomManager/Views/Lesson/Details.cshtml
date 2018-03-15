@@ -7,7 +7,15 @@
     <h2>@Html.DisplayFor(model => model.Title)</h2>
 
     <div>
-        <h4>Lesson Details</h4>
+        <h4>
+            Lesson Details
+            <a asp-action="Delete" asp-controller="Lesson" asp-route-id="@Model.Id">
+                <i class="far fa-trash-alt"></i>
+            </a>
+            <a asp-action="Edit" asp-controller="Lesson" asp-route-id="@Model.Id">
+                <i class="far fa-edit"></i>
+            </a>
+        </h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -39,9 +47,9 @@
             </div>
         }
     </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
+    <div class="mt-3">
+        <a asp-action="Edit" asp-controller="Lesson" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> 
+        <a asp-action="Index" asp-controller="Lesson" asp-route-user="@Model.User" class="btn btn-outline-secondary">Back to Lessons</a>
     </div>
 </main>
 @section Scripts {

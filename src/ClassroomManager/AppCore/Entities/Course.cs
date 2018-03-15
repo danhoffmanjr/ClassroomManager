@@ -23,7 +23,7 @@ namespace App.Core.Entities
 
         [Required]
         [StringLength(25)]
-        public string Status { get; set; } = "Active";
+        public string Status { get; set; } = "0";
 
         //Navigation Properties
         //Parent

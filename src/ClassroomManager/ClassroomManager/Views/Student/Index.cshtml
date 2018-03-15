@@ -1,0 +1,48 @@
+﻿@model App.Core.Entities.Teacher
+
+@{
+    ViewData["Title"] = "Index";
+}
+<main id="panel">
+    <nav class="navbar navbar-light bg-light justify-content-between mb-3">
+        <span class="navbar-brand">@Html.DisplayFor(model => model.FirstName)'s Students (@Model.Students.Count)</span>
+        <a asp-action="Add" asp-controller="Student" asp-route-teacherId="@Model.Id" asp-route-userId="@Model.User" class="btn btn-outline-success my-2 my-sm-0">Add Student</a>
+    </nav>
+    <hr />
+    @if (Model.Students != null && Model.Students.Count > 0)
+    {
+        <div class="row">
+            @foreach (var item in Model.Students)
+            {
+
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <h5 class="card-header">
+                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                            @if (item.StudentLessons == null)
+                            {
+                                <i class="fas fa-exclamation-triangle text-warning" title="WARNING: Student is not assigned to any lessons"></i>
+                            }
+                            <a asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">
+                                <i class="far fa-edit"></i>
+                            </a>
+                        </h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><span class="text-info">Level:</span> @Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(item.GradeLevel))</li>
+                            <li class="list-group-item"><span class="text-info">Date of Birth:</span> @Html.DisplayFor(modelItem => item.DoB)</li>
+                            <li class="list-group-item"><span class="text-info">Added on:</span> @Html.DisplayFor(modelItem => item.CreatedDate)</li>
+                        </ul>
+                        <div class="card-body">
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Email)</p>
+                            <p class="card-text">add profile data here...</p>
+                            <a asp-action="Details" asp-controller="Lesson" asp-route-id="@item.Id" class="btn btn-primary">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</main>

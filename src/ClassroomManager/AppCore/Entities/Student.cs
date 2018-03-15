@@ -14,6 +14,10 @@ namespace App.Core.Entities
         [StringLength(25)]
         public string GradeLevel { get; set; }
 
+        [Display(Name ="Student Picture")]
+        [StringLength(150)]
+        public string ImageUrl { get; set; }
+
         //Navigation Properties
         //Parent
         public long TeacherId { get; set; }

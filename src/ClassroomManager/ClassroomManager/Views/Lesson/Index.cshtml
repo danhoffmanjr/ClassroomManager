@@ -4,8 +4,9 @@
     ViewData["Title"] = "Index";
 }
 <main id="panel">
-    <nav class="navbar navbar-dark bg-secondary mb-3">
-        <span class="navbar-brand mb-0 h1">@Html.DisplayFor(model => model.Lesson.Teacher.FirstName)'s Lessons</span>
+    <nav class="navbar navbar-light bg-light justify-content-between mb-3">
+        <span class="navbar-brand">@Html.DisplayFor(model => model.Lesson.Teacher.FirstName)'s Lessons (@Model.Lessons.Count)</span>
+        <a asp-action="Create" asp-controller="Lesson" asp-route-teacherId="@Model.Lesson.TeacherId" asp-route-userId="@Model.Lesson.User" class="btn btn-outline-success my-2 my-sm-0">Create Lesson</a>
     </nav>
     <hr />
     @if (Model.Lessons != null && Model.Lessons.Count > 0)
@@ -18,17 +19,21 @@
                     <div class="card mb-3">
                         <h5 class="card-header">
                             @Html.DisplayFor(modelItem => item.Title)
+                            @if (item.CourseId == null)
+                            {
+                                <i class="fas fa-exclamation-triangle text-warning" title="WARNING: Lesson is not assigned to a course"></i>
+                            }
                             <a asp-action="Delete" asp-controller="Lesson" asp-route-id="@item.Id">
                                 <i class="far fa-trash-alt"></i>
                             </a>
-                            <a asp-action="Details" asp-controller="Lesson" asp-route-id="@item.Id">
+                            <a asp-action="Edit" asp-controller="Lesson" asp-route-id="@item.Id">
                                 <i class="far fa-edit"></i>
                             </a>
                         </h5>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Status: @Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(item.PublishStatus))</li>
-                            <li class="list-group-item">Subject: @Html.DisplayFor(modelItem => item.Subject)</li>
-                            <li class="list-group-item">Created: @Html.DisplayFor(modelItem => item.CreatedDate)</li>
+                            <li class="list-group-item"><span class="text-info">Status:</span> @Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(item.PublishStatus))</li>
+                            <li class="list-group-item"><span class="text-info">Subject:</span> @Html.DisplayFor(modelItem => item.Subject)</li>
+                            <li class="list-group-item"><span class="text-info">Created:</span> @Html.DisplayFor(modelItem => item.CreatedDate)</li>
                         </ul>
                         <div class="card-body">
                             <p class="card-text">@Html.DisplayFor(modelItem => item.Summary)</p>

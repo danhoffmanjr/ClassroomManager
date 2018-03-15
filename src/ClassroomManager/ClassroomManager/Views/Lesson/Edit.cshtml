@@ -1,0 +1,87 @@
+﻿@model App.Core.Entities.Lesson
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<main id="panel">
+    <h2>Edit Lesson</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-9">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Summary" class="control-label"></label>
+                    <textarea asp-for="Summary" class="form-control"></textarea>
+                    <span asp-validation-for="Summary" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Subject" class="control-label"></label>
+                    <input asp-for="Subject" class="form-control" />
+                    <span asp-validation-for="Subject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PublishStatus" class="control-label"></label>
+                    <select asp-for="PublishStatus" asp-items="Html.GetEnumSelectList<PublishStatusEnum>()" class="form-control"></select>
+                    <span asp-validation-for="PublishStatus" class="text-danger"></span>
+                </div>
+                <label class="control-label">Content Sections</label>
+                <div id="accordion">
+                    @for (var i = 0; i < Model.Sections.Count; i++)
+                    {
+                        <h3>Section @(i + 1)</h3>
+                        <div>
+                            <div class="form-group">
+                                <label asp-for="Sections[i].SubTitle" class="control-label"></label>
+                                <input asp-for="Sections[i].SubTitle" class="form-control" />
+                                <span asp-validation-for="Sections[i].SubTitle" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Sections[i].PublishStatus" class="control-label"></label>
+                                <select asp-for="Sections[i].PublishStatus" asp-items="Html.GetEnumSelectList<PublishStatusEnum>()" class="form-control"></select>
+                                <span asp-validation-for="Sections[i].PublishStatus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Sections[i].ImageUrl" class="control-label"></label>
+                                <input asp-for="Sections[i].ImageUrl" class="form-control" />
+                                <span asp-validation-for="Sections[i].ImageUrl" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Sections[i].Content" class="control-label"></label>
+                                <textarea asp-for="Sections[i].Content" class="form-control tinyMCE"></textarea>
+                                <span asp-validation-for="Sections[i].Content" class="text-danger"></span>
+                            </div>
+                            <input type="hidden" asp-for="Sections[i].Id" class="form-control" />
+                            <input type="hidden" asp-for="Sections[i].LessonId" class="form-control" />
+                            <input type="hidden" asp-for="Sections[i].User" class="form-control" />
+                            <input type="hidden" asp-for="Sections[i].CreatedBy" class="form-control" />
+                            <input type="hidden" asp-for="Sections[i].CreatedDate" class="form-control" />
+                            <input type="hidden" asp-for="Sections[i].ModifiedDate" class="form-control" value="@DateTime.Now" />
+                            <input type="hidden" asp-for="Sections[i].ModifiedBy" class="form-control" value="@Model.User" />
+                            <input type="hidden" asp-for="Sections[i].Version" class="form-control" />
+                        </div>
+                    }
+                </div>
+                <input type="hidden" asp-for="ImageUrl" class="form-control" />
+                <input type="hidden" asp-for="TeacherId" class="form-control" />
+                <input type="hidden" asp-for="CourseId" class="form-control" />
+                <input type="hidden" asp-for="Id" class="form-control" />
+                <input type="hidden" asp-for="User" class="form-control" />
+                <input type="hidden" asp-for="CreatedBy" class="form-control" />
+                <input type="hidden" asp-for="CreatedDate" class="form-control" />
+                <input type="hidden" asp-for="ModifiedDate" class="form-control" value="@DateTime.Now" />
+                <input type="hidden" asp-for="ModifiedBy" class="form-control" value="@Model.User" />
+                <input type="hidden" asp-for="Version" class="form-control" />
+                <div class="form-group mt-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-action="Index" asp-controller="Lesson" asp-route-user="@Model.User" class="btn btn-outline-secondary">Back to Lessons</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

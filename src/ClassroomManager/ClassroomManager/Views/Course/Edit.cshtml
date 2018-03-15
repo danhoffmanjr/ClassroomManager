@@ -45,8 +45,7 @@
                 <input type="hidden" asp-for="ModifiedDate" class="form-control" value="@DateTime.Now" />
                 <input type="hidden" asp-for="ModifiedBy" class="form-control" value="@Model.User" />
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" /> |
-                    <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@Model.User">Back to Dashboard</a>
+                    <input type="submit" value="Save" class="btn btn-primary" /> <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@Model.User" class="btn btn-outline-secondary">Back to Dashboard</a>
                 </div>
             </form>
         </div>

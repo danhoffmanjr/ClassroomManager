@@ -32,7 +32,7 @@ namespace App.Core.Entities
         [JsonIgnore]
         public Teacher Teacher { get; set; }
         //Parent 2
-        public long CourseId { get; set; }
+        public long? CourseId { get; set; }
         [JsonIgnore]
         public Course Course { get; set; }
         //Child 1

@@ -16,5 +16,7 @@ namespace App.Core.Entities
         public List<Course> Courses { get; set; }
         //Child 2
         public List<Lesson> Lessons { get; set; }
+        //Child 3
+        public List<Student> Students { get; set; }
     }
 }

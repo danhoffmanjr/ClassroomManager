@@ -16,7 +16,7 @@
             <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
                 <section class="courses">
                     <nav class="navbar navbar-light bg-light justify-content-between mb-3">
-                        <span class="navbar-brand">Courses</span>
+                        <span class="navbar-brand">Courses (@Model.Courses.Count())</span>
                         <a asp-action="Create" asp-controller="Course" asp-route-teacherId="@Model.Id" asp-route-userId="@Model.User" class="btn btn-outline-primary my-2 my-sm-0">Create Course</a>
                     </nav>
                     <div class="row">
@@ -94,9 +94,15 @@
                                             <ul id="lessons-@i" class="list-group list-group-flush lessons">
                                                 @foreach (var lesson in Model.Courses[i].Lessons)
                                                 {
-                                                    <li class="list-group-item">
-                                                        <a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.Id">@Html.DisplayFor(modelItem => lesson.Title)</a>
-                                                    </li>
+                                                <li class="list-group-item">
+                                                    <a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.Id">@Html.DisplayFor(modelItem => lesson.Title)</a>
+                                                    <a asp-action="Delete" asp-controller="Lesson" asp-route-id="@lesson.Id">
+                                                        <i class="far fa-trash-alt"></i>
+                                                    </a>
+                                                    <a asp-action="Edit" asp-controller="Lesson" asp-route-id="@lesson.Id">
+                                                        <i class="far fa-edit"></i>
+                                                    </a>
+                                                </li>
                                                 }
                                             </ul>
                                         }

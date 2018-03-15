@@ -14,10 +14,12 @@ namespace App.Web.Controllers
     public class LessonController : Controller
     {
         private readonly ILessonRepositoryAsync _lessonRepositoryAsync;
+        private readonly IRepositoryAsync<LessonSection> _sectionRepositoryAsync;
 
-        public LessonController(ILessonRepositoryAsync lessonRepositoryAsync)
+        public LessonController(ILessonRepositoryAsync lessonRepositoryAsync, IRepositoryAsync<LessonSection> sectionRepositoryAsync)
         {
             _lessonRepositoryAsync = lessonRepositoryAsync;
+            _sectionRepositoryAsync = sectionRepositoryAsync;
         }
 
         // GET: Lesson
@@ -78,7 +80,7 @@ namespace App.Web.Controllers
                 {
                     User = data.User,
                     TeacherId = data.TeacherId,
-                    CourseId = data.CourseId,
+                    CourseId = data.CourseId == 0 ? null : data.CourseId,
                     Title = data.Title,
                     Summary = data.Summary,
                     Subject = data.Subject,
@@ -99,24 +101,30 @@ namespace App.Web.Controllers
         }
 
         // GET: Lesson/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(long id)
         {
-            return View();
+            return View(await _lessonRepositoryAsync.GetByIdAsync(id));
         }
 
         // POST: Lesson/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(long id, IFormCollection collection)
+        public async Task<ActionResult> Edit(Lesson updatedLesson, IFormCollection collection)
         {
             try
             {
-                
 
-                return RedirectToAction(nameof(Index));
+                await _lessonRepositoryAsync.UpdateAsync(updatedLesson);
+                foreach (var section in updatedLesson.Sections)
+                {
+                    await _sectionRepositoryAsync.UpdateAsync(section);
+                }
+
+                return RedirectToAction("Details", "Lesson", new { id = updatedLesson.Id });
             }
-            catch
+            catch(Exception ex)
             {
+                var errorMsg = ex;
                 return View();
             }
         }
