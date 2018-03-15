@@ -1,58 +1,133 @@
 ﻿@model App.Core.Entities.Teacher
 <main id="panel">
-    <h2 class="title-bar">@Html.DisplayFor(model => model.FirstName)'s Dashboard</h2>
-    <div class="flexPanels">
-        <section id="profile">
-            <h3>Profile</h3>
-            <p>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id })</p>
-            <p><strong>@Html.DisplayNameFor(model => model.User) Id:</strong> @Html.DisplayFor(model => model.User)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Role):</strong> @Html.DisplayFor(model => model.Role)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.FirstName):</strong> @Html.DisplayFor(model => model.FirstName)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.LastName):</strong> @Html.DisplayFor(model => model.LastName)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.AddressLine):</strong> @Html.DisplayFor(model => model.AddressLine)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.AddressLine2):</strong> @Html.DisplayFor(model => model.AddressLine2)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.City):</strong> @Html.DisplayFor(model => model.City)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.State):</strong> @Html.DisplayFor(model => model.State)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Zip):</strong> @Html.DisplayFor(model => model.Zip)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.PhoneNumberOpt):</strong> @Html.DisplayFor(model => model.PhoneNumberOpt)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Email):</strong> @Html.DisplayFor(model => model.Email)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.DoB):</strong> @Html.DisplayFor(model => model.DoB)</p>
-            <p><strong>Teacher @Html.DisplayNameFor(model => model.Id):</strong> @Html.DisplayFor(model => model.Id)</p>
-            <p><strong>Joined:</strong> @Html.DisplayFor(model => model.CreatedDate)</p>
-        </section>
-        <section id="courses">
-            <h3>Courses</h3>
-            <a asp-action="Create" asp-controller="Course" asp-route-teacherId="@Model.Id" asp-route-userId="@Model.User">Create New Course</a>
-            @for (var i = 0; i < Model.Courses.Count; i++)
-            {
-                <section class="course">
-                    <p><strong>Course Id: </strong>@Model.Courses[i].Id</p>
-                    <p><strong>Status: </strong>@Model.Courses[i].Status</p>
-                    <p><strong>Title: </strong>@Model.Courses[i].Title</p>
-                    <p><strong>Description: </strong>@Html.Raw(Model.Courses[i].Description)</p>
-                    <p><strong>Start Date: </strong>@Model.Courses[i].StartDate</p>
-                    <p><strong>End Date: </strong>@Model.Courses[i].EndDate</p>
-                    @*<p><strong>Realated Teacher Id: </strong>@Model.Courses[i].TeacherId</p>
-                        <p><strong>Created By: </strong>@Model.Courses[i].User</p>
-                        <p>Last updated by @Model.Courses[i].ModifiedBy on @Model.Courses[i].ModifiedDate</p>*@
-                    <p>
-                        <a asp-action="Edit" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Edit</a> |
-                        <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">Delete</a> |
-                        <a asp-action="Create" asp-controller="Lesson" asp-route-teacherId="@Model.Courses[i].TeacherId" asp-route-userId="@Model.Courses[i].User" asp-route-courseId="@Model.Courses[i].Id">Create Lesson</a>
-                    </p>
-                    <section class="child-lessons">
-                        @if (Model.Courses[i].Lessons != null)
+    <nav class="navbar navbar-dark bg-primary mb-3">
+        <span class="navbar-brand mb-0 h1">@Html.DisplayFor(model => model.FirstName)'s Classroom</span>
+    </nav>
+    <div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="true">Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="courses" role="tabpanel" aria-labelledby="courses-tab">
+                <section class="courses">
+                    <nav class="navbar navbar-light bg-light justify-content-between mb-3">
+                        <span class="navbar-brand">Courses</span>
+                        <a asp-action="Create" asp-controller="Course" asp-route-teacherId="@Model.Id" asp-route-userId="@Model.User" class="btn btn-outline-primary my-2 my-sm-0">Create Course</a>
+                    </nav>
+                    <div class="row">
+                        @for (var i = 0; i < Model.Courses.Count; i++)
                         {
-                            <h5>Lessons in this course:</h5>
-                            foreach (var lesson in Model.Courses[i].Lessons)
-                            {
-                            <p><a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.Id">@Html.DisplayFor(modelItem => lesson.Title)</a></p>
-                            }
+                            <div class="col-sm-6">
+                                <div class="card bg-light mb-3">
+                                    <h5 class="card-header">
+                                        @Model.Courses[i].Title
+                                        <a asp-action="Delete" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">
+                                            <i class="far fa-trash-alt"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-controller="Course" asp-route-id="@Model.Courses[i].Id">
+                                            <i class="far fa-edit"></i>
+                                        </a>
+                                    </h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item flex-details">
+                                            <span class="card-detail-group">
+                                                <span class="card-label">Status:</span>
+                                                <span class="detail-value">@Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(Model.Courses[i].Status))</span>
+                                            </span>
+                                            <span class="card-detail-group">
+                                                <span class="card-label"># of Lessons:</span>
+                                                @if (Model.Courses[i].Lessons != null)
+                                                {
+                                                    <span class="detail-value">@Model.Courses[i].Lessons.Count()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="detail-value"><span class="text-danger">None, Create one below <i class="far fa-arrow-alt-circle-down"></i></span></span>
+                                                }
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item  flex-details">
+                                            <span class="card-detail-group">
+                                                <span class="card-label">Start Date:</span>
+                                                @if (Model.Courses[i].StartDate != null)
+                                                {
+                                                    <span class="detail-value">@DateTime.Parse(Model.Courses[i].StartDate.ToString()).ToShortDateString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="detail-value">none</span>
+                                                }
+                                            </span>
+                                            <span class="card-detail-group">
+                                                <span class="card-label">End Date:</span>
+                                                @if (Model.Courses[i].EndDate != null)
+                                                {
+                                                    <span class="detail-value">@DateTime.Parse(Model.Courses[i].EndDate.ToString()).ToShortDateString()</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="detail-value">none</span>
+                                                }
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <div class="card-body">
+                                        <p class="card-text">@Model.Courses[i].Description</p>
+                                        <nav class="navbar lessons-bar justify-content-between">
+                                            @if (Model.Courses[i].Lessons != null)
+                                            {
+                                                <div class="navbar-text text-primary toggle" data-id="@i">Show course lessons</div>
+                                            }
+                                            else
+                                            {
+                                                <span class="detail-value"><span class="text-danger">There are no lessons in this course. Create one <i class="far fa-arrow-alt-circle-right"></i></span></span>
+                                            }
+                                            <a asp-action="Create" asp-controller="Lesson" asp-route-teacherId="@Model.Courses[i].TeacherId" asp-route-userId="@Model.Courses[i].User" asp-route-courseId="@Model.Courses[i].Id" class="btn btn-outline-success my-2 my-sm-0">Create Lesson</a>
+                                        </nav>
+                                        @if (Model.Courses[i].Lessons != null)
+                                        {
+                                            <ul id="lessons-@i" class="list-group list-group-flush lessons">
+                                                @foreach (var lesson in Model.Courses[i].Lessons)
+                                                {
+                                                    <li class="list-group-item">
+                                                        <a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.Id">@Html.DisplayFor(modelItem => lesson.Title)</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         }
-                    </section>
+                    </div>
                 </section>
-            }
-        </section>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <section class="profile">
+                    <h3>Profile</h3>
+                    <p>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id })</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.User) Id:</strong> @Html.DisplayFor(model => model.User)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.Role):</strong> @Html.DisplayFor(model => model.Role)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.FirstName):</strong> @Html.DisplayFor(model => model.FirstName)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.LastName):</strong> @Html.DisplayFor(model => model.LastName)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.AddressLine):</strong> @Html.DisplayFor(model => model.AddressLine)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.AddressLine2):</strong> @Html.DisplayFor(model => model.AddressLine2)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.City):</strong> @Html.DisplayFor(model => model.City)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.State):</strong> @Html.DisplayFor(model => model.State)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.Zip):</strong> @Html.DisplayFor(model => model.Zip)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.PhoneNumberOpt):</strong> @Html.DisplayFor(model => model.PhoneNumberOpt)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.Email):</strong> @Html.DisplayFor(model => model.Email)</p>
+                    <p><strong>@Html.DisplayNameFor(model => model.DoB):</strong> @Html.DisplayFor(model => model.DoB)</p>
+                    <p><strong>Teacher @Html.DisplayNameFor(model => model.Id):</strong> @Html.DisplayFor(model => model.Id)</p>
+                    <p><strong>Joined:</strong> @Html.DisplayFor(model => model.CreatedDate)</p>
+                </section>
+            </div>
+        </div>
     </div>
 </main>

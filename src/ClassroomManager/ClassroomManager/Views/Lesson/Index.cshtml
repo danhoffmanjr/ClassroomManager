@@ -4,18 +4,21 @@
     ViewData["Title"] = "Index";
 }
 <main id="panel">
-    <h2>@Html.DisplayFor(model => model.Lesson.Teacher.FirstName)'s Lessons</h2>
+    <nav class="navbar navbar-dark bg-secondary mb-3">
+        <span class="navbar-brand mb-0 h1">@Html.DisplayFor(model => model.Lesson.Teacher.FirstName)'s Lessons</span>
+    </nav>
     <hr />
     @if (Model.Lessons != null && Model.Lessons.Count > 0)
     {
-        @foreach (var item in Model.Lessons)
-        {
-            <div class="row">
+        <div class="row">
+            @foreach (var item in Model.Lessons)
+            {
+
                 <div class="col-sm-4">
-                    <div class="card">
+                    <div class="card mb-3">
                         <h5 class="card-header">
                             @Html.DisplayFor(modelItem => item.Title)
-                            <a asp-action="Details" asp-controller="Lesson" asp-route-id="@item.Id">
+                            <a asp-action="Delete" asp-controller="Lesson" asp-route-id="@item.Id">
                                 <i class="far fa-trash-alt"></i>
                             </a>
                             <a asp-action="Details" asp-controller="Lesson" asp-route-id="@item.Id">
@@ -33,7 +36,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     }
 </main>

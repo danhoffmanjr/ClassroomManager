@@ -18,20 +18,8 @@ namespace App.Web.Controllers
             _courseRepositoryAsync = courseRepositoryAsync;
         }
 
-        // GET: Course
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Course/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Course/Create
-        public ActionResult Create(int teacherId, string userId)
+        public ActionResult Create(long teacherId, string userId)
         {
             Course newCourse = new Course
             {

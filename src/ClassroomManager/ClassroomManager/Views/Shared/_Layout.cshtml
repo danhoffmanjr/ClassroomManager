@@ -22,6 +22,17 @@
         <script>
             $(function () {
                 $("#accordion").accordion();
+                function toggleLessons(id) { 
+                    $("#lessons-" + id).toggle("slow", function () {
+                        //var txt = $("#lessons-" + id).is(':visible') ? 'Hide course lessons' : 'Show course lessons';
+                        //$(".toggle").text(txt);
+                    });
+                };
+                $(".toggle").click(function () {
+                    toggleLessons($(this).data('id'));
+                    var txt = $(this).text() == 'Show course lessons' ? 'Hide course lessons' : 'Show course lessons';
+                    $(this).text(txt);
+                });
             });
         </script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
@@ -57,10 +68,10 @@
         <nav id="menu">
             <header><i class="fas fa-bars"></i> MENU</header>
             <ul>
-                <li><i class="fas fa-home"></i> <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@UserManager.GetUserId(User)">Dashboard</a></li>
-                <li><i class="fas fa-book"></i> <a asp-action="Index" asp-controller="Lesson" asp-route-user="@UserManager.GetUserId(User)">Lessons</a></li>
-                <li><i class="fas fa-users"></i> <a asp-action="Index">Students</a></li>
-                <li><i class="fas fa-paperclip"></i> <a asp-action="Index">Files</a></li>
+                <li><span class="icon"><i class="fas fa-home"></i></span> <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@UserManager.GetUserId(User)">Dashboard</a></li>
+                <li><span class="icon"><i class="fas fa-book"></i></span> <a asp-action="Index" asp-controller="Lesson" asp-route-user="@UserManager.GetUserId(User)">Lessons</a></li>
+                <li><span class="icon"><i class="fas fa-users"></i></span> <a asp-action="Index">Students</a></li>
+                <li><span class="icon"><i class="fas fa-paperclip"></i></span> <a asp-action="Index">Files</a></li>
             </ul>
         </nav>
 }

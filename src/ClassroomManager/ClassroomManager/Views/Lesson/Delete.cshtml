@@ -1,0 +1,36 @@
+﻿@model App.Core.Entities.Lesson
+
+@{
+    ViewData["Status"] = Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(Model.PublishStatus));
+}
+<div id="panel">
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this lesson?</h3>
+    <p class="text-danger">All the content for this lesson will be perminately deleted!</p>
+    <div>
+        <hr />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <h5 class="card-header">
+                        @Html.DisplayFor(model => model.Title)
+                    </h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Status: @ViewData["Status"]</li>
+                        <li class="list-group-item">Subject: @Html.DisplayFor(model => model.Subject)</li>
+                        <li class="list-group-item">Created: @Html.DisplayFor(model => model.CreatedDate)</li>
+                    </ul>
+                    <div class="card-body">
+                        <p class="card-text">@Html.DisplayFor(model => model.Summary)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <form asp-action="Delete">
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            <a asp-action="Index" asp-controller="Lesson" asp-route-user="@Model.User">Back to Lessons</a>
+        </form>
+    </div>
+</div>

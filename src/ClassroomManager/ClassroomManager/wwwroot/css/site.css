@@ -4,8 +4,13 @@
     margin: 0;
     padding: 10px;
     width: 150px;
-    min-height: 100%;
+    height: 100%;
     background-color: lightslategray;
+}
+
+#menu header {
+    border-bottom: 1px solid #ccc;
+    padding: 5px 5px 5px 2px;
 }
 
 #menu > ul {
@@ -16,24 +21,33 @@
 
 #menu > ul li {
     margin: 0;
-    padding: 5px 5px 5px 0;
+    padding: 5px 5px 5px 2px;
     border-bottom: 1px solid #ccc;
 }
 
-#menu > ul li a{
+#menu > ul li a {
     color: #000;
     text-decoration: none;
+}
+
+#menu > ul li a:hover {
+    color: cyan;
+}
+
+#menu li span.icon {
+    display: inline-block;
+    text-align: center;
+    width: 23px;
 }
 
 .icon-menu {
     display: inline-block;
     padding-right: 5px;
-
 }
 
 #panel {
     margin-left: 150px;
-    padding: 15px 0;
+    padding: 20px 10px;
 }
 
 footer {
@@ -79,39 +93,21 @@ h2.setup {
     }
 }
 
-
-.title-bar {
-    border: 1px solid grey;
-}
-
 .course {
     margin: .5rem 0;
     padding: 1rem;
     border: 1px solid grey;
 }
 
-.flexPanels {
-    display: flex;
-    justify-content: center;
-}
-
 #courses, #profile {
     padding: 1rem;
-    flex: 1;
-    border: 1px solid blue;
 }
 
 /*Lesson Section*/
-.lesson-sections {
-    padding: 5px;
-    background-color: lightgoldenrodyellow;
-    border: 1px dashed blue;
-}
 
 .fa-edit, .fa-trash-alt {
-    display: inline-block;
     padding: 1px;
-    margin: 1px 0 0 3px;
+    margin: 1px 0 0 13px;
     float: right;
     color: #808080;
 }
@@ -122,4 +118,43 @@ h2.setup {
 
 .fa-trash-alt:hover {
     color: darkred;
+}
+
+.card-text {
+    height: 200px;
+    overflow-y: scroll;
+}
+
+.flex-details {
+    display: inline-flex;
+}
+
+.flex-details .card-detail-group {
+    flex: 1;
+}
+
+.card-label {
+    color: #17a2b8;
+}
+
+/*Keep at bottom*/
+
+.lessons {
+    display: none;
+}
+
+.toggle:hover {
+    text-decoration: underline;
+}
+
+.lessons-bar {
+    background-color: rgba(0,0,0,.02);
+}
+
+textarea {
+    min-height: 100px;
+}
+
+.disabled {
+    color: #dae0e5 !important;
 }

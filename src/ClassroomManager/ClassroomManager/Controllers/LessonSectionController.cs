@@ -88,19 +88,19 @@ namespace App.Web.Controllers
                     PublishStatus = newSection.Section.PublishStatus
                 };
 
-                //if (newSection.FileToUpload != null && newSection.FileToUpload.Length > 0)
-                //{
-                //    section.ImageUrl = newSection.FileToUpload.FileName.ToString();
+                if (newSection.FileToUpload != null && newSection.FileToUpload.Length > 0)
+                {
+                    section.ImageUrl = newSection.FileToUpload.FileName.ToString();
 
-                //    var path = Path.Combine(
-                //            Directory.GetCurrentDirectory(), "wwwroot/blob",
-                //            newSection.FileToUpload.FileName);
+                    var path = Path.Combine(
+                            Directory.GetCurrentDirectory(), "wwwroot/blob",
+                            newSection.FileToUpload.FileName);
 
-                //    using (var stream = new FileStream(path, FileMode.Create))
-                //    {
-                //        await newSection.FileToUpload.CopyToAsync(stream);
-                //    }
-                //}
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await newSection.FileToUpload.CopyToAsync(stream);
+                    }
+                }
 
                 await _sectionRepositoryAsync.AddAsync(section);
 

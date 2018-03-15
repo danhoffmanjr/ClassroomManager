@@ -26,7 +26,7 @@
                 @Html.DisplayNameFor(model => model.PublishStatus)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.PublishStatus)
+                @Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(Model.PublishStatus))
             </dd>
         </dl>
     </div>

@@ -107,11 +107,11 @@ namespace App.Web.Controllers
         // POST: Lesson/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(long id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                
 
                 return RedirectToAction(nameof(Index));
             }
@@ -122,24 +122,26 @@ namespace App.Web.Controllers
         }
 
         // GET: Lesson/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long id)
         {
-            return View();
+            return View(await _lessonRepositoryAsync.GetByIdAsync(id));
         }
 
         // POST: Lesson/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Lesson toDelete, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                var lesson = await _lessonRepositoryAsync.GetByIdAsync(toDelete.Id);
+                await _lessonRepositoryAsync.DeleteAsync(lesson);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { user = lesson.User });
             }
-            catch
+            catch(Exception ex)
             {
+                var ErrorMsg = ex;
                 return View();
             }
         }

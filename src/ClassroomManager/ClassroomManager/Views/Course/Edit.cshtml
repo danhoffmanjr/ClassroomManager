@@ -5,7 +5,6 @@
 }
 <main id="panel">
     <h2>Edit</h2>
-
     <h4>Course</h4>
     <hr />
     <div class="row">
@@ -46,14 +45,11 @@
                 <input type="hidden" asp-for="ModifiedDate" class="form-control" value="@DateTime.Now" />
                 <input type="hidden" asp-for="ModifiedBy" class="form-control" value="@Model.User" />
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-primary" /> |
+                    <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@Model.User">Back to Dashboard</a>
                 </div>
             </form>
         </div>
-    </div>
-
-    <div>
-        <a asp-action="Dashboard" asp-controller="Teacher" asp-route-user="@Model.User">Back to Dashboard</a>
     </div>
 </main>
     @section Scripts {
