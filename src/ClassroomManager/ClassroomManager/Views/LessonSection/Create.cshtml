@@ -8,10 +8,10 @@
             <a class="nav-link active" id="section-tab" data-toggle="tab" href="#section" role="tab" aria-controls="section" aria-selected="true">Content</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link disabled" href="#">Students</a>
+            <a class="nav-link disabled" href="#">Assignments</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link disabled" href="#">Assignments</a>
+            <a class="nav-link disabled" href="#">Students</a>
         </li>
         <li class="nav-item">
             <a class="nav-link disabled" href="#">Files</a>
@@ -71,10 +71,11 @@
                         <input type="hidden" asp-for="Section.ModifiedBy" class="form-control" />
                         <input type="hidden" asp-for="Section.Version" class="form-control" />
                         <div class="form-group">
-                            <input type="submit" id="add-section" name="add-section" value="Add Section" class="btn btn-primary" /> 
+                            <input type="submit" id="add-section" name="add-section" value="Add Section" class="btn btn-primary" />
                             @if (Model.Sections != null && Model.Sections.Count > 0)
                             {
-                                <a asp-action="Index" asp-controller="Lesson" asp-route-user="Model.User" class="btn btn-outline-secondary">Continue to Students</a>
+                                <a asp-action="Create" asp-controller="Assignment" asp-route-id="@Model.Lesson.Id" class="btn btn-outline-secondary">Continue to Assignments</a>
+                                <a asp-action="Index" asp-controller="Lesson" asp-route-user="@Model.Lesson.User" class="btn btn-outline-secondary">Done</a>
                             }
                         </div>
                     </form>
