@@ -137,6 +137,13 @@ h2.setup {
     color: #17a2b8;
 }
 
+.student-pic {
+    width: 286px;
+    height: 180px;
+    padding: 2px;
+    overflow: hidden;
+}
+
 /*Keep at bottom*/
 
 .lessons {

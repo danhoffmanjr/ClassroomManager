@@ -1,93 +1,93 @@
-﻿@model App.Core.Entities.Student
+﻿@model App.Web.Models.StudentAddViewModel
 
 @{
     ViewData["Title"] = "Add";
 }
 
 <main id="panel">
-    <h2>Add</h2>
-
-    <h4>Student</h4>
+    <h2>Add Student</h2>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Add">
+            <form asp-action="Add" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="GradeLevel" class="control-label"></label>
-                    <input asp-for="GradeLevel" class="form-control" />
-                    <span asp-validation-for="GradeLevel" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="FirstName" class="control-label"></label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <label asp-for="Student.GradeLevel" class="control-label"></label>
+                    <select asp-for="Student.GradeLevel" asp-items="Html.GetEnumSelectList<GradeLevelEnum>()" class="form-control"></select>
+                    <span asp-validation-for="Student.GradeLevel" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="LastName" class="control-label"></label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                    <label asp-for="Student.FirstName" class="control-label"></label>
+                    <input asp-for="Student.FirstName" class="form-control" required />
+                    <span asp-validation-for="Student.FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="ImageUrl" class="control-label"></label>
-                    <input type="file" asp-for="ImageUrl" class="form-control" />
-                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    <label asp-for="Student.LastName" class="control-label"></label>
+                    <input asp-for="Student.LastName" class="form-control" required />
+                    <span asp-validation-for="Student.LastName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="AddressLine" class="control-label"></label>
-                    <input asp-for="AddressLine" class="form-control" />
-                    <span asp-validation-for="AddressLine" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="AddressLine2" class="control-label"></label>
-                    <input asp-for="AddressLine2" class="form-control" />
-                    <span asp-validation-for="AddressLine2" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="City" class="control-label"></label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="State" class="control-label"></label>
-                    <input asp-for="State" class="form-control" />
-                    <span asp-validation-for="State" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Zip" class="control-label"></label>
-                    <input asp-for="Zip" class="form-control" />
-                    <span asp-validation-for="Zip" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumber" class="control-label"></label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="PhoneNumberOpt" class="control-label"></label>
-                    <input asp-for="PhoneNumberOpt" class="form-control" />
-                    <span asp-validation-for="PhoneNumberOpt" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DoB" class="control-label"></label>
-                    <input asp-for="DoB" class="form-control" />
-                    <span asp-validation-for="DoB" class="text-danger"></span>
-                </div>
-                <input type="hidden" asp-for="Id" class="form-control" />
-                <input type="hidden" asp-for="Role" class="form-control" />
-                <input type="hidden" asp-for="TeacherId" class="form-control" />
-                <input type="hidden" asp-for="User" class="form-control" />
-                <input type="hidden" asp-for="CreatedDate" class="form-control" />
-                <input type="hidden" asp-for="ModifiedDate" class="form-control" />
-                <input type="hidden" asp-for="CreatedBy" class="form-control" />
-                <input type="hidden" asp-for="ModifiedBy" class="form-control" />
-                <input type="hidden" asp-for="Version" class="form-control" />
+                <fieldset>
+                    <legend>Optional Profile Information:</legend>
+                    <div class="form-group">
+                        <label asp-for="StudentPic" class="control-label"></label>
+                        <input type="file" asp-for="StudentPic" class="form-control" />
+                        <span asp-validation-for="StudentPic" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.AddressLine" class="control-label"></label>
+                        <input asp-for="Student.AddressLine" class="form-control" />
+                        <span asp-validation-for="Student.AddressLine" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.AddressLine2" class="control-label"></label>
+                        <input asp-for="Student.AddressLine2" class="form-control" />
+                        <span asp-validation-for="Student.AddressLine2" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.City" class="control-label"></label>
+                        <input asp-for="Student.City" class="form-control" />
+                        <span asp-validation-for="Student.City" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.State" class="control-label"></label>
+                        <input asp-for="Student.State" class="form-control" />
+                        <span asp-validation-for="Student.State" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.Zip" class="control-label"></label>
+                        <input asp-for="Student.Zip" class="form-control" />
+                        <span asp-validation-for="Student.Zip" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.PhoneNumber" class="control-label"></label>
+                        <input asp-for="Student.PhoneNumber" class="form-control" />
+                        <span asp-validation-for="Student.PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.PhoneNumberOpt" class="control-label"></label>
+                        <input asp-for="Student.PhoneNumberOpt" class="form-control" />
+                        <span asp-validation-for="Student.PhoneNumberOpt" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.Email" class="control-label"></label>
+                        <input asp-for="Student.Email" class="form-control" />
+                        <span asp-validation-for="Student.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Student.DoB" class="control-label"></label>
+                        <input asp-for="Student.DoB" class="form-control" />
+                        <span asp-validation-for="Student.DoB" class="text-danger"></span>
+                    </div>
+                </fieldset>
+                <input type="hidden" asp-for="Student.Id" class="form-control" />
+                <input type="hidden" asp-for="Student.Role" class="form-control" />
+                <input type="hidden" asp-for="Student.TeacherId" class="form-control" />
+                <input type="hidden" asp-for="Student.User" class="form-control" />
+                <input type="hidden" asp-for="Student.CreatedDate" class="form-control" />
+                <input type="hidden" asp-for="Student.ModifiedDate" class="form-control" />
+                <input type="hidden" asp-for="Student.CreatedBy" class="form-control" />
+                <input type="hidden" asp-for="Student.ModifiedBy" class="form-control" />
+                <input type="hidden" asp-for="Student.Version" class="form-control" />
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-default" />
                 </div>

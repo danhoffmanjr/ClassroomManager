@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using App.Core.Entities;
 using App.Core.Interfaces;
+using App.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,30 +37,53 @@ namespace App.Web.Controllers
         // GET: Student/Create
         public ActionResult Add(long teacherId, string userId)
         {
-            Student newStudent = new Student
+            StudentAddViewModel model = new StudentAddViewModel
             {
+                Student = new Student
+                {
                 TeacherId = teacherId,
                 User = userId,
                 CreatedBy = userId,
                 CreatedDate = DateTime.Now
+                }
             };
-            return View(newStudent);
+            return View(model);
         }
 
         // POST: Student/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(IFormCollection collection)
+        public async Task<ActionResult> Add(StudentAddViewModel newStudent, IFormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (newStudent.StudentPic != null && newStudent.StudentPic.Length > 0)
+                {
+                    newStudent.Student.ImageUrl = newStudent.StudentPic.FileName.ToString();
 
-                return RedirectToAction(nameof(Index));
+                    var path = Path.Combine(
+                            Directory.GetCurrentDirectory(), "wwwroot/images/students",
+                            newStudent.StudentPic.FileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await newStudent.StudentPic.CopyToAsync(stream);
+                    }
+
+                    await _studentRepositoryAsync.AddAsync(newStudent.Student);
+                }
+                else
+                {
+                    newStudent.Student.ImageUrl = "fet.jpg";
+                    await _studentRepositoryAsync.AddAsync(newStudent.Student);
+                }
+
+                return RedirectToAction("Index", "Student", new { user = newStudent.Student.User });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                var errormsg = ex;
+                return View(ex);
             }
         }
 

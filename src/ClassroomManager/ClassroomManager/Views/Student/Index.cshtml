@@ -1,7 +1,7 @@
 ﻿@model App.Core.Entities.Teacher
 
 @{
-    ViewData["Title"] = "Index";
+
 }
 <main id="panel">
     <nav class="navbar navbar-light bg-light justify-content-between mb-3">
@@ -11,35 +11,21 @@
     <hr />
     @if (Model.Students != null && Model.Students.Count > 0)
     {
-        <div class="row">
+        <div class="row m-3">
             @foreach (var item in Model.Students)
             {
-
-                <div class="col-sm-4">
-                    <div class="card mb-3">
-                        <h5 class="card-header">
-                            @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
-                            @if (item.StudentLessons == null)
-                            {
-                                <i class="fas fa-exclamation-triangle text-warning" title="WARNING: Student is not assigned to any lessons"></i>
+                <div class="card" style="width: 18rem; margin: 5px;">
+                    <div class="student-pic"><img class="card-img-top" src="~/images/students/@item.ImageUrl" alt="@item.FirstName"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">@item.FirstName @item.LastName</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            @{
+                                GradeLevelEnum level = (GradeLevelEnum)Enum.Parse(typeof(GradeLevelEnum), item.GradeLevel);
                             }
-                            <a asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">
-                                <i class="far fa-trash-alt"></i>
-                            </a>
-                            <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">
-                                <i class="far fa-edit"></i>
-                            </a>
-                        </h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><span class="text-info">Level:</span> @Enum.GetName(typeof(PublishStatusEnum), Int32.Parse(item.GradeLevel))</li>
-                            <li class="list-group-item"><span class="text-info">Date of Birth:</span> @Html.DisplayFor(modelItem => item.DoB)</li>
-                            <li class="list-group-item"><span class="text-info">Added on:</span> @Html.DisplayFor(modelItem => item.CreatedDate)</li>
-                        </ul>
-                        <div class="card-body">
-                            <p class="card-text">@Html.DisplayFor(modelItem => item.Email)</p>
-                            <p class="card-text">add profile data here...</p>
-                            <a asp-action="Details" asp-controller="Lesson" asp-route-id="@item.Id" class="btn btn-primary">View Profile</a>
-                        </div>
+                            @level.GetDisplayName()
+                        </h6>
+                        <p class="card-text" style="height: auto; overflow-y: auto;">@item.FirstName has been a student since @item.CreatedDate</p>
+                        <a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id" class="btn btn-primary">Profile</a>
                     </div>
                 </div>
             }
