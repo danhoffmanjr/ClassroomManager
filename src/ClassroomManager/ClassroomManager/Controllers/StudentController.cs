@@ -59,26 +59,30 @@ namespace App.Web.Controllers
             {
                 if (newStudent.StudentPic != null && newStudent.StudentPic.Length > 0)
                 {
+                    //Upload file if it doesn't already exist on server
                     newStudent.Student.ImageUrl = newStudent.StudentPic.FileName.ToString();
 
                     var path = Path.Combine(
                             Directory.GetCurrentDirectory(), "wwwroot/images/students",
                             newStudent.StudentPic.FileName);
 
-                    using (var stream = new FileStream(path, FileMode.Create))
+                    if (!System.IO.File.Exists(path))
                     {
-                        await newStudent.StudentPic.CopyToAsync(stream);
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await newStudent.StudentPic.CopyToAsync(stream);
+                        }
                     }
 
                     await _studentRepositoryAsync.AddAsync(newStudent.Student);
                 }
                 else
                 {
-                    newStudent.Student.ImageUrl = "fet.jpg";
+                    newStudent.Student.ImageUrl = "fet.jpg"; // sets default Profile picture
                     await _studentRepositoryAsync.AddAsync(newStudent.Student);
                 }
 
-                return RedirectToAction("Index", "Student", new { user = newStudent.Student.User });
+                return RedirectToAction("Index", new { user = newStudent.Student.User });
             }
             catch(Exception ex)
             {
@@ -88,48 +92,82 @@ namespace App.Web.Controllers
         }
 
         // GET: Student/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Student student = await _studentRepositoryAsync.GetByIdAsync(id);
+
+            StudentAddViewModel model = new StudentAddViewModel
+            {
+                Student = student
+            };
+            return View(model);
         }
 
         // POST: Student/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(StudentAddViewModel updateStudent, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                if (updateStudent.StudentPic != null && updateStudent.StudentPic.Length > 0)
+                {
+                    updateStudent.Student.ImageUrl = updateStudent.StudentPic.FileName.ToString();
 
-                return RedirectToAction(nameof(Index));
+                    var path = Path.Combine(
+                            Directory.GetCurrentDirectory(), "wwwroot/images/students",
+                            updateStudent.StudentPic.FileName);
+
+                    //Upload file if it doesn't already exist on server
+                    if (!System.IO.File.Exists(path))
+                    {
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await updateStudent.StudentPic.CopyToAsync(stream);
+                        }
+                    }
+
+                    await _studentRepositoryAsync.UpdateAsync(updateStudent.Student);
+                }
+                else
+                {
+                    await _studentRepositoryAsync.UpdateAsync(updateStudent.Student);
+                }
+
+                return RedirectToAction("Index", new { user = updateStudent.Student.User });
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                var errorMsg = ex.Message;
+                return View(errorMsg);
             }
         }
 
         // GET: Student/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long id)
         {
-            return View();
+            Student student = await _studentRepositoryAsync.GetByIdAsync(id);
+
+            return View(student);
         }
 
         // POST: Student/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(Student toDelete, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                Student studentToDelete = await _studentRepositoryAsync.GetByIdAsync(toDelete.Id);
 
-                return RedirectToAction(nameof(Index));
+                await _studentRepositoryAsync.DeleteAsync(studentToDelete);
+
+                return RedirectToAction("Index", new { user = studentToDelete.User });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                var errorMsg = ex.Message;
+                return View(errorMsg);
             }
         }
     }

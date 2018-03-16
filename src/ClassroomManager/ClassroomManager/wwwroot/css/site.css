@@ -120,7 +120,15 @@ h2.setup {
     color: darkred;
 }
 
-.card-text {
+.fa-clipboard-list, .fa-file-alt {
+    color: #808080;
+}
+
+    .fa-clipboard-list:hover, .fa-file-alt:hover {
+        color: #17a2b8;
+    }
+
+.summary {
     height: 200px;
     overflow-y: scroll;
 }
@@ -137,11 +145,30 @@ h2.setup {
     color: #17a2b8;
 }
 
+/*Student Card*/
+.student-card {
+    width: 245px; 
+    margin: 10px;
+}
+
+.student-edit-icons {
+    padding: 5px 10px;
+    font-size: 1.25rem;
+}
+
 .student-pic {
-    width: 286px;
-    height: 180px;
+    height: 240px;
     padding: 2px;
-    overflow: hidden;
+    overflow-y: hidden;
+    border-bottom: 1px solid rgba(0,0,0,.125)
+}
+
+.pic-thumb {
+    width: 50px;
+}
+
+.student-profile {
+    display: none;
 }
 
 /*Keep at bottom*/

@@ -11,21 +11,60 @@
     <hr />
     @if (Model.Students != null && Model.Students.Count > 0)
     {
-        <div class="row m-3">
+        <div class="row m-1">
             @foreach (var item in Model.Students)
             {
-                <div class="card" style="width: 18rem; margin: 5px;">
+                <div class="card student-card">
+                    <div class="card-header student-edit-icons">
+                        <i class="far fa-file-alt"></i>
+                        @if (item.StudentLessons == null)
+                        {
+                            <i class="fas fa-exclamation-triangle text-warning" title="WARNING: Student is not assigned to any lessons."></i>
+                        }
+                        <a asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">
+                            <i class="far fa-edit"></i>
+                        </a>
+                    </div>
                     <div class="student-pic"><img class="card-img-top" src="~/images/students/@item.ImageUrl" alt="@item.FirstName"></div>
                     <div class="card-body">
                         <h5 class="card-title">@item.FirstName @item.LastName</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
+                        <h6 class="card-subtitle mb-1 text-muted">
                             @{
                                 GradeLevelEnum level = (GradeLevelEnum)Enum.Parse(typeof(GradeLevelEnum), item.GradeLevel);
+
+                                //move this to controller and inject via ViewData
+                                int pct = 30;
+
+                                if (item.Email != null) { pct += 10; }
+                                if (item.DoB != DateTime.MinValue) { pct += 10; }
+                                if (item.PhoneNumber != null || item.PhoneNumberOpt != null) { pct += 10; }
+                                if (item.AddressLine != null || item.AddressLine2 != null) { pct += 10; }
+                                if (item.City != null) { pct += 10; }
+                                if (item.State != null) { pct += 10; }
+                                if (item.Zip != null) { pct += 10; }
                             }
                             @level.GetDisplayName()
                         </h6>
-                        <p class="card-text" style="height: auto; overflow-y: auto;">@item.FirstName has been a student since @item.CreatedDate</p>
-                        <a asp-action="Profile" asp-controller="Student" asp-route-id="@item.Id" class="btn btn-primary">Profile</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <i class="far fa-address-card"></i> Profile (@pct% complete)
+                    </div>
+                    <div class="student-profile">
+                        <ul class="list-group list-group-flush">
+                            <li class='list-group-item'><span class='text-info'>Email:</span> @item.Email</li>
+                            <li class='list-group-item'><span class='text-info'>Date of Birth:</span> @item.DoB.ToShortDateString()</li>
+                            <li class='list-group-item'><span class='text-info'>Phone (Primary):</span> @Convert.ToInt64(item.PhoneNumber)</li>
+                            <li class="list-group-item">
+                                <span class="text-info">Address:</span>
+                                <div>
+                                    @item.AddressLine <br />
+                                    @item.City, @item.State @item.Zip
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             }

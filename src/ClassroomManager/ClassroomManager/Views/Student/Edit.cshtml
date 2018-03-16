@@ -1,13 +1,14 @@
 ﻿@model App.Web.Models.StudentAddViewModel
-@{
 
+@{
 }
+
 <main id="panel">
-    <h2>Add Student</h2>
+    <h2><img class="pic-thumb" src="~/images/students/@Model.Student.ImageUrl" /> Update @Model.Student.FirstName's Profile</h2>
     <hr />
     <div class="row">
         <div class="col-md-9">
-            <form asp-action="Add" enctype="multipart/form-data">
+            <form asp-action="Edit" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-row">
                     <div class="col">
@@ -37,7 +38,7 @@
                     <div class="form-row">
                         <div class="col">
                             <div class="form-group">
-                                <label asp-for="StudentPic" class="control-label">Upload Student Picture</label>
+                                <label asp-for="StudentPic" class="control-label">Upload New Profile Picture</label>
                                 <input type="file" asp-for="StudentPic" class="form-control btn-sm" />
                                 <span asp-validation-for="StudentPic" class="text-danger"></span>
                             </div>
@@ -113,6 +114,7 @@
                         </div>
                     </div>
                 </fieldset>
+                <input type="hidden" asp-for="Student.ImageUrl" class="form-control" />
                 <input type="hidden" asp-for="Student.Id" class="form-control" />
                 <input type="hidden" asp-for="Student.Role" class="form-control" />
                 <input type="hidden" asp-for="Student.TeacherId" class="form-control" />
@@ -123,10 +125,15 @@
                 <input type="hidden" asp-for="Student.ModifiedBy" class="form-control" />
                 <input type="hidden" asp-for="Student.Version" class="form-control" />
                 <div class="form-group">
-                    <input type="submit" value="Add Student" class="btn btn-primary" /> 
+                    <input type="submit" value="Update" class="btn btn-primary" />
                     <a asp-action="Index" asp-controller="Student" asp-route-user="@Model.Student.User" class="btn btn-outline-secondary">Back to Students</a>
                 </div>
             </form>
         </div>
     </div>
 </main>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
