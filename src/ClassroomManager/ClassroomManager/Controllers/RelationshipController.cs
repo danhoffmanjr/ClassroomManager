@@ -14,12 +14,12 @@ namespace App.Web.Controllers
     {
         private readonly ILessonRepositoryAsync _lessonRepositoryAsync;
         private readonly ITeacherRepositoryAsync _teacherRepositoryAsync;
-        private readonly IRepositoryAsync<Student> _studentRepositoryAsync;
+        private readonly IStudentRepositoryAsync _studentRepositoryAsync;
         private readonly IRelationshipRepositoryAsync _relationshipRepositoryAsync;
 
         public RelationshipController(ILessonRepositoryAsync lessonRepositoryAsync, 
             ITeacherRepositoryAsync teacherRepositoryAsync, 
-            IRepositoryAsync<Student> studentRepositoryAsync,
+            IStudentRepositoryAsync studentRepositoryAsync,
             IRelationshipRepositoryAsync relationshipRepositoryAsync)
         {
             _lessonRepositoryAsync = lessonRepositoryAsync;
@@ -39,6 +39,7 @@ namespace App.Web.Controllers
         {
             Teacher teacher = await _teacherRepositoryAsync.GetByUserAsync(user);
             Student student = await _studentRepositoryAsync.GetByIdAsync(id);
+            List<Lesson> lessons = teacher.Lessons;
 
             RelationshipViewModel model = new RelationshipViewModel
             {

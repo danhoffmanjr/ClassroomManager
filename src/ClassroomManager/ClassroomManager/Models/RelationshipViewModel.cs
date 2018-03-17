@@ -10,5 +10,6 @@ namespace App.Web.Models
     {
         public Teacher Teacher { get; set; }
         public Student Student { get; set; }
+        public List<StudentLesson> StudentLessons { get; set; }
     }
 }

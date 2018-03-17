@@ -13,10 +13,10 @@ namespace App.Web.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IRepositoryAsync<Student> _studentRepositoryAsync;
+        private readonly IStudentRepositoryAsync _studentRepositoryAsync;
         private readonly ITeacherRepositoryAsync _teacherRepositoryAsync;
 
-        public StudentController(IRepositoryAsync<Student> studentRepositoryAsync, ITeacherRepositoryAsync teacherRepositoryAsync)
+        public StudentController(IStudentRepositoryAsync studentRepositoryAsync, ITeacherRepositoryAsync teacherRepositoryAsync)
         {
             _studentRepositoryAsync = studentRepositoryAsync;
             _teacherRepositoryAsync = teacherRepositoryAsync;
@@ -25,7 +25,9 @@ namespace App.Web.Controllers
         // GET: Student
         public async Task<ActionResult> Index(string user)
         {
-            return View(await _teacherRepositoryAsync.GetByUserAsync(user));
+            Teacher teacherData = await _teacherRepositoryAsync.GetByUserAsync(user);
+            List<Student> Students = await _studentRepositoryAsync.ListByUserAsync(user);
+            return View(teacherData);
         }
 
         // GET: Student/Details/5

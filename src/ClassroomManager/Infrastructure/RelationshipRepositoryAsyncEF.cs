@@ -29,5 +29,12 @@ namespace App.Infrastructure
              _dbContext.StudentLessons.UpdateRange(idList);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<StudentLesson> CheckLessonByIdAsync(long id)
+        {
+            return await _dbContext.StudentLessons.FirstOrDefaultAsync(t => t.LessonId == id);
+        }
+
+        
     }
 }
