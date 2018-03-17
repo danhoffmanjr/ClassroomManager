@@ -11,8 +11,8 @@ using System;
 namespace App.Infrastructure.Migrations
 {
     [DbContext(typeof(ClassroomDbContext))]
-    [Migration("20180317172624_StudentLessons")]
-    partial class StudentLessons
+    [Migration("20180317221440_AddingStudentLessonJoinDbSet")]
+    partial class AddingStudentLessonJoinDbSet
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

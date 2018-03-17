@@ -66,16 +66,19 @@ namespace App.Web.Controllers
         {
             try
             {
+                _relationshipRepositoryAsync.RemoveById(model.Student.Id);
+
                 foreach (var id in model.Selected)
                 {
                     await _relationshipRepositoryAsync.AddAsync(model.Student.Id, id);
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("StudentLessons", new { user = model.Teacher.User, id = model.Student.Id });
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                var errorMsg = ex.Message;
+                return View(errorMsg);
             }
         }
 

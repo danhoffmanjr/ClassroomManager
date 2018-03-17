@@ -7,15 +7,16 @@
     <div>
         <hr />
         <h4>@Model.Student.FirstName's Assigned Lessons</h4>
-        @if (Model.Student.StudentLessons != null && Model.Student.StudentLessons.Count > 0)
-        {
-            foreach (var lesson in Model.Student.StudentLessons)
+        <ul>
+            @if (Model.Student.StudentLessons != null && Model.Student.StudentLessons.Count > 0)
             {
-                <a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.LessonId">@lesson.Lesson.Title</a>
+                foreach (var lesson in Model.Student.StudentLessons)
+                {
+                    <li><a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.LessonId">@lesson.Lesson.Title</a></li>
+                }
+
             }
-
-        }
-
+        </ul>
         <hr />
         <h4>All Lessons</h4>
         <form asp-action="StudentLessons">
@@ -25,12 +26,12 @@
 
                 if (Model.AssignedLessons.Contains(lesson.Id))
                 {
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="Selected" value="@lesson.Id" id="checkbox-@lesson.Id" checked>
-                <label asp-for="checkbox-@lesson.Id" class="form-check-label">
-                    @lesson.Title (Lesson Id: @lesson.Id)
-                </label>
-            </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="Selected" value="@lesson.Id" id="checkbox-@lesson.Id" checked>
+                        <label asp-for="checkbox-@lesson.Id" class="form-check-label">
+                            @lesson.Title (Lesson Id: @lesson.Id)
+                        </label>
+                    </div>
                 }
                 else
                 {
@@ -43,6 +44,7 @@
                 }
             }
             <input type="hidden" asp-for="@Model.Student.Id" />
+            <input type="hidden" asp-for="@Model.Teacher.User" />
             <div class="form-group">
                 <input type="submit" value="Update Student Lessons" class="btn btn-primary" />
             </div>

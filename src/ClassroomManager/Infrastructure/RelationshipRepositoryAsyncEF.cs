@@ -30,9 +30,15 @@ namespace App.Infrastructure
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task RemoveByIdAsync(long studentId)
+        //public async Task DeleteAsync(StudentLesson entity)
+        //{
+        //    _dbContext.StudentLessons.Remove(entity);
+        //    await _dbContext.SaveChangesAsync();
+        //}
+
+        public void RemoveById(long studentId)
         {
-            await _dbContext.StudentLessons.RemoveAsync(studentId);
+            _dbContext.StudentLessons.RemoveRange(_dbContext.StudentLessons.Where(x => x.StudentId == studentId));
         }
     }
 }

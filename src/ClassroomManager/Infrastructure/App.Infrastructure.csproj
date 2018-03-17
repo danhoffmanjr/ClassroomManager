@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20180307172203_Annotations Added.cs" />
     <Compile Remove="Migrations\20180307172727_Annotations Added.cs" />
     <Compile Remove="Migrations\20180307173316_Annotations Added.cs" />
+    <Compile Remove="Migrations\20180317172624_StudentLessons.cs" />
+    <Compile Remove="Migrations\20180317221207_AddingStudentLessonJoinDbSet.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,6 +18,7 @@ namespace App.Infrastructure
         public DbSet<Course> Courses { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<LessonSection> LessonSections { get; set; }
+        public DbSet<StudentLesson> StudentLessons { get; set; }
         public DbSet<FileLink> Attachments { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
 

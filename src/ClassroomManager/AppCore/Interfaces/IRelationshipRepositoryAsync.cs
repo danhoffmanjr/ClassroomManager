@@ -8,7 +8,7 @@ namespace App.Core.Interfaces
 {
     public interface IRelationshipRepositoryAsync
     {
-        Task RemoveByIdAsync(long studentId);
+        void RemoveById(long studentId);
         Task AddAsync(long studentId, long lessonId);
     }
 }
