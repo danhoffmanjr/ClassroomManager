@@ -10,6 +10,9 @@ namespace App.Web.Models
     {
         public Teacher Teacher { get; set; }
         public Student Student { get; set; }
+        public bool AssignId {get; set;}
         public List<StudentLesson> StudentLessons { get; set; }
+        public List<long> AssignedLessons { get; set; }
+        public List<long> Selected { get; set; }
     }
 }

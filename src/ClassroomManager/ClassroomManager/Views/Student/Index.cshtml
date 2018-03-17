@@ -12,41 +12,41 @@
     @if (Model.Students != null && Model.Students.Count > 0)
     {
         <div class="row m-1">
-            @foreach (var item in Model.Students)
+            @foreach (var student in Model.Students)
             {
                 <div class="card student-card">
                     <div class="card-header student-edit-icons">
-                        <a asp-action="StudentLessons" asp-controller="Relationship" asp-route-id="@item.Id" asp-route-user="@item.User">
+                        <a asp-action="StudentLessons" asp-controller="Relationship" asp-route-id="@student.Id" asp-route-user="@student.User">
                             <i class="far fa-file-alt"></i>
                         </a>
-                        @if (item.StudentLessons == null)
+                        @if (student.StudentLessons == null || student.StudentLessons.Count <= 0)
                         {
                             <i class="fas fa-exclamation-triangle text-warning" title="WARNING: Student is not assigned to any lessons."></i>
                         }
-                        <a asp-action="Delete" asp-controller="Student" asp-route-id="@item.Id">
+                        <a asp-action="Delete" asp-controller="Student" asp-route-id="@student.Id">
                             <i class="far fa-trash-alt"></i>
                         </a>
-                        <a asp-action="Edit" asp-controller="Student" asp-route-id="@item.Id">
+                        <a asp-action="Edit" asp-controller="Student" asp-route-id="@student.Id">
                             <i class="far fa-edit"></i>
                         </a>
                     </div>
-                    <div class="student-pic"><img class="card-img-top" src="~/images/students/@item.ImageUrl" alt="@item.FirstName"></div>
+                    <div class="student-pic"><img class="card-img-top" src="~/images/students/@student.ImageUrl" alt="@student.FirstName"></div>
                     <div class="card-body">
-                        <h5 class="card-title">@item.FirstName @item.LastName</h5>
+                        <h5 class="card-title">@student.FirstName @student.LastName</h5>
                         <h6 class="card-subtitle mb-1 text-muted">
                             @{
-                                GradeLevelEnum level = (GradeLevelEnum)Enum.Parse(typeof(GradeLevelEnum), item.GradeLevel);
+                                GradeLevelEnum level = (GradeLevelEnum)Enum.Parse(typeof(GradeLevelEnum), student.GradeLevel);
 
                                 //move this to controller and inject via ViewData
                                 int pct = 30;
 
-                                if (item.Email != null) { pct += 10; }
-                                if (item.DoB != DateTime.MinValue) { pct += 10; }
-                                if (item.PhoneNumber != null || item.PhoneNumberOpt != null) { pct += 10; }
-                                if (item.AddressLine != null || item.AddressLine2 != null) { pct += 10; }
-                                if (item.City != null) { pct += 10; }
-                                if (item.State != null) { pct += 10; }
-                                if (item.Zip != null) { pct += 10; }
+                                if (student.Email != null) { pct += 10; }
+                                if (student.DoB != DateTime.MinValue) { pct += 10; }
+                                if (student.PhoneNumber != null || student.PhoneNumberOpt != null) { pct += 10; }
+                                if (student.AddressLine != null || student.AddressLine2 != null) { pct += 10; }
+                                if (student.City != null) { pct += 10; }
+                                if (student.State != null) { pct += 10; }
+                                if (student.Zip != null) { pct += 10; }
                             }
                             @level.GetDisplayName()
                         </h6>
@@ -56,14 +56,14 @@
                     </div>
                     <div class="student-profile">
                         <ul class="list-group list-group-flush">
-                            <li class='list-group-item'><span class='text-info'>Email:</span> @item.Email</li>
-                            <li class='list-group-item'><span class='text-info'>Date of Birth:</span> @item.DoB.ToShortDateString()</li>
-                            <li class='list-group-item'><span class='text-info'>Phone (Primary):</span> @Convert.ToInt64(item.PhoneNumber)</li>
-                            <li class="list-group-item">
+                            <li class='list-group-student'><span class='text-info'>Email:</span> @student.Email</li>
+                            <li class='list-group-student'><span class='text-info'>Date of Birth:</span> @student.DoB.ToShortDateString()</li>
+                            <li class='list-group-student'><span class='text-info'>Phone (Primary):</span> @Convert.ToInt64(student.PhoneNumber)</li>
+                            <li class="list-group-student">
                                 <span class="text-info">Address:</span>
                                 <div>
-                                    @item.AddressLine <br />
-                                    @item.City, @item.State @item.Zip
+                                    @student.AddressLine <br />
+                                    @student.City, @student.State @student.Zip
                                 </div>
                             </li>
                         </ul>

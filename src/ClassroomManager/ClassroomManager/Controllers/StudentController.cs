@@ -26,6 +26,7 @@ namespace App.Web.Controllers
         public async Task<ActionResult> Index(string user)
         {
             Teacher teacherData = await _teacherRepositoryAsync.GetByUserAsync(user);
+            //Somehow adding this List of Students query will change the teacherData query to include StudentLessons (grandchild data), without this, all StudentLessons for Students is null.
             List<Student> Students = await _studentRepositoryAsync.ListByUserAsync(user);
             return View(teacherData);
         }

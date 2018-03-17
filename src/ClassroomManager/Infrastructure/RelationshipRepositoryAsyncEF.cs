@@ -18,23 +18,21 @@ namespace App.Infrastructure
             _dbContext = dbContext;
         }
 
-        public async void AddRangeAsync(List<StudentLesson> idList)
+        public async Task AddAsync(long studentId, long lessonId)
         {
-            await _dbContext.StudentLessons.AddRangeAsync(idList);
+            StudentLesson studentLesson = new StudentLesson
+            {
+                StudentId = studentId,
+                LessonId = lessonId
+            };
+
+            await _dbContext.StudentLessons.AddAsync(studentLesson);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async void UpdateRangeAsync(List<StudentLesson> idList)
+        public async Task RemoveByIdAsync(long studentId)
         {
-             _dbContext.StudentLessons.UpdateRange(idList);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.StudentLessons.RemoveAsync(studentId);
         }
-
-        public async Task<StudentLesson> CheckLessonByIdAsync(long id)
-        {
-            return await _dbContext.StudentLessons.FirstOrDefaultAsync(t => t.LessonId == id);
-        }
-
-        
     }
 }

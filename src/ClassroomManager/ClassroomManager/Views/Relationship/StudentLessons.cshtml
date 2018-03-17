@@ -1,21 +1,20 @@
 ﻿@model App.Web.Models.RelationshipViewModel
 
 @{
-    ViewData["Title"] = "StudentLessons";
 }
 <main id="panel">
-    <h2>Student Lessons (Teacher Id: @Model.Teacher.Id)</h2>
+    <h2>Manage Student Lessons</h2>
     <div>
         <hr />
-        <h4>@Model.Student.FirstName's Lessons (Student Id: @Model.Student.Id)</h4>
-        @*@if (Model.Student.StudentLessons != null && Model.Student.StudentLessons.Count > 0)
+        <h4>@Model.Student.FirstName's Assigned Lessons</h4>
+        @if (Model.Student.StudentLessons != null && Model.Student.StudentLessons.Count > 0)
+        {
+            foreach (var lesson in Model.Student.StudentLessons)
             {
-                foreach (var lesson in Model.Student.StudentLessons)
-                {
-                    <p><a>@lesson.Lesson.Title</a></p>
-                }
+                <a asp-action="Details" asp-controller="Lesson" asp-route-id="@lesson.LessonId">@lesson.Lesson.Title</a>
+            }
 
-            }*@
+        }
 
         <hr />
         <h4>All Lessons</h4>
@@ -23,13 +22,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @foreach (var lesson in Model.Teacher.Lessons)
             {
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="@lesson.Id" id="@lesson.Id">
-                    <label asp-for="@lesson.Id" class="form-check-label">
-                        @lesson.Title (Lesson Id: @lesson.Id)
-                    </label>
-                </div>
+
+                if (Model.AssignedLessons.Contains(lesson.Id))
+                {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="Selected" value="@lesson.Id" id="checkbox-@lesson.Id" checked>
+                <label asp-for="checkbox-@lesson.Id" class="form-check-label">
+                    @lesson.Title (Lesson Id: @lesson.Id)
+                </label>
+            </div>
+                }
+                else
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="Selected" value="@lesson.Id" id="checkbox-@lesson.Id">
+                        <label asp-for="checkbox-@lesson.Id" class="form-check-label">
+                            @lesson.Title (Lesson Id: @lesson.Id)
+                        </label>
+                    </div>
+                }
             }
+            <input type="hidden" asp-for="@Model.Student.Id" />
             <div class="form-group">
                 <input type="submit" value="Update Student Lessons" class="btn btn-primary" />
             </div>

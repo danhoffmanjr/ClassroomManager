@@ -8,7 +8,7 @@ namespace App.Core.Interfaces
 {
     public interface IRelationshipRepositoryAsync
     {
-        void AddRangeAsync(List<StudentLesson> idList);
-        void UpdateRangeAsync(List<StudentLesson> idList);
+        Task RemoveByIdAsync(long studentId);
+        Task AddAsync(long studentId, long lessonId);
     }
 }

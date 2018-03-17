@@ -38,13 +38,22 @@ namespace App.Web.Controllers
         public async Task<ActionResult> StudentLessons(string user, long id)
         {
             Teacher teacher = await _teacherRepositoryAsync.GetByUserAsync(user);
+            List<Student> Students = await _studentRepositoryAsync.ListByUserAsync(user);
             Student student = await _studentRepositoryAsync.GetByIdAsync(id);
-            List<Lesson> lessons = teacher.Lessons;
+            List<StudentLesson> studentLessons = student.StudentLessons;
+            List<long> assignedLessons = new List<long>();
+
+            foreach (var lesson in studentLessons)
+            {
+                assignedLessons.Add(lesson.LessonId);
+            }
 
             RelationshipViewModel model = new RelationshipViewModel
             {
                 Teacher = teacher,
-                Student = student
+                Student = student,
+                StudentLessons = studentLessons,
+                AssignedLessons = assignedLessons
             };
 
             return View(model);
@@ -57,13 +66,10 @@ namespace App.Web.Controllers
         {
             try
             {
-                List<StudentLesson> idList = model.Student.StudentLessons.ToList();
-                foreach (var row in model.Student.StudentLessons)
+                foreach (var id in model.Selected)
                 {
-                    
+                    await _relationshipRepositoryAsync.AddAsync(model.Student.Id, id);
                 }
-
-                _relationshipRepositoryAsync.AddRangeAsync(idList);
 
                 return RedirectToAction(nameof(Index));
             }
