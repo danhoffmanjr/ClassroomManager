@@ -16,7 +16,9 @@
             {
                 <div class="card student-card">
                     <div class="card-header student-edit-icons">
-                        <i class="far fa-file-alt"></i>
+                        <a asp-action="StudentLessons" asp-controller="Relationship" asp-route-id="@item.Id" asp-route-user="@item.User">
+                            <i class="far fa-file-alt"></i>
+                        </a>
                         @if (item.StudentLessons == null)
                         {
                             <i class="fas fa-exclamation-triangle text-warning" title="WARNING: Student is not assigned to any lessons."></i>

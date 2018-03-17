@@ -50,6 +50,7 @@ namespace ClassroomManager
             services.AddScoped(typeof(IRepositoryAsync<>), typeof(RepositoryAsyncEF<>));
             services.AddScoped<ITeacherRepositoryAsync, TeacherRepositoryAsyncEF>();
             services.AddScoped<ILessonRepositoryAsync, LessonRepositoryAsyncEF>();
+            services.AddScoped<IRelationshipRepositoryAsync, RelationshipRepositoryAsyncEF>();
 
             services.AddAuthorization(options =>
             {

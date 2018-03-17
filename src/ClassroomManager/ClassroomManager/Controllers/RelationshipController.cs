@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App.Core.Entities;
+using App.Core.Interfaces;
+using App.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +12,70 @@ namespace App.Web.Controllers
 {
     public class RelationshipController : Controller
     {
+        private readonly ILessonRepositoryAsync _lessonRepositoryAsync;
+        private readonly ITeacherRepositoryAsync _teacherRepositoryAsync;
+        private readonly IRepositoryAsync<Student> _studentRepositoryAsync;
+        private readonly IRelationshipRepositoryAsync _relationshipRepositoryAsync;
+
+        public RelationshipController(ILessonRepositoryAsync lessonRepositoryAsync, 
+            ITeacherRepositoryAsync teacherRepositoryAsync, 
+            IRepositoryAsync<Student> studentRepositoryAsync,
+            IRelationshipRepositoryAsync relationshipRepositoryAsync)
+        {
+            _lessonRepositoryAsync = lessonRepositoryAsync;
+            _teacherRepositoryAsync = teacherRepositoryAsync;
+            _studentRepositoryAsync = studentRepositoryAsync;
+            _relationshipRepositoryAsync = relationshipRepositoryAsync;
+        }
+
         // GET: Relationship
         public ActionResult Index()
         {
             return View();
+        }
+
+        // GET: Relationship/StudentLessons
+        public async Task<ActionResult> StudentLessons(string user, long id)
+        {
+            Teacher teacher = await _teacherRepositoryAsync.GetByUserAsync(user);
+            Student student = await _studentRepositoryAsync.GetByIdAsync(id);
+
+            RelationshipViewModel model = new RelationshipViewModel
+            {
+                Teacher = teacher,
+                Student = student
+            };
+
+            return View(model);
+        }
+
+        // POST: Relationship/StudentLessons
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> StudentLessons(RelationshipViewModel model, IFormCollection collection)
+        {
+            try
+            {
+                List<StudentLesson> idList = model.Student.StudentLessons.ToList();
+                foreach (var row in model.Student.StudentLessons)
+                {
+                    
+                }
+
+                _relationshipRepositoryAsync.AddRangeAsync(idList);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Relationship/CourseLessons
+        public async Task<ActionResult> CourseLessons(string user)
+        {
+            return View(await _teacherRepositoryAsync.GetByUserAsync(user));
         }
 
         // GET: Relationship/Details/5
