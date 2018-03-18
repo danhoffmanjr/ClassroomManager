@@ -117,20 +117,19 @@
                 <section class="profile">
                     <h3>Profile</h3>
                     <p>@Html.ActionLink("Edit Profile", "Edit", new { id = Model.Id })</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.User) Id:</strong> @Html.DisplayFor(model => model.User)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.Role):</strong> @Html.DisplayFor(model => model.Role)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.FirstName):</strong> @Html.DisplayFor(model => model.FirstName)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.LastName):</strong> @Html.DisplayFor(model => model.LastName)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.AddressLine):</strong> @Html.DisplayFor(model => model.AddressLine)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.AddressLine2):</strong> @Html.DisplayFor(model => model.AddressLine2)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.City):</strong> @Html.DisplayFor(model => model.City)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.State):</strong> @Html.DisplayFor(model => model.State)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.Zip):</strong> @Html.DisplayFor(model => model.Zip)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.PhoneNumber):</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.PhoneNumberOpt):</strong> @Html.DisplayFor(model => model.PhoneNumberOpt)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.Email):</strong> @Html.DisplayFor(model => model.Email)</p>
-                    <p><strong>@Html.DisplayNameFor(model => model.DoB):</strong> @Html.DisplayFor(model => model.DoB)</p>
-                    <p><strong>Teacher @Html.DisplayNameFor(model => model.Id):</strong> @Html.DisplayFor(model => model.Id)</p>
+                    <p><strong>Name:</strong> @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</p>
+                    <p><strong>Account Id:</strong> @Html.DisplayFor(model => model.User)</p>
+                    <p><strong>Account Type:</strong> @Html.DisplayFor(model => model.Role)</p>
+                    <p><strong>User Id:</strong> @Html.DisplayFor(model => model.Id)</p>
+                    <p><strong>Login Email:</strong> @Html.DisplayFor(model => model.Email)</p>
+                    <p>
+                        <strong>Address:</strong> <br />
+                        @Html.DisplayFor(model => model.AddressLine) @Html.DisplayFor(model => model.AddressLine2)<br />
+                        @Html.DisplayFor(model => model.City), @Html.DisplayFor(model => model.State) @Html.DisplayFor(model => model.Zip)
+                    </p>
+                    <p><strong>Phone:</strong> @Html.DisplayFor(model => model.PhoneNumber)</p>
+                    <p><strong>Alt Phone:</strong> @Html.DisplayFor(model => model.PhoneNumberOpt)</p>
+                    <p><strong>Date of Birth:</strong> @Html.DisplayFor(model => model.DoB)</p>
                     <p><strong>Joined:</strong> @Html.DisplayFor(model => model.CreatedDate)</p>
                 </section>
             </div>

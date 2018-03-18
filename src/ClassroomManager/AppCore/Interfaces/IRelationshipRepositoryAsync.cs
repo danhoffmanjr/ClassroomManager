@@ -10,5 +10,6 @@ namespace App.Core.Interfaces
     {
         void RemoveById(long studentId);
         Task AddAsync(long studentId, long lessonId);
+        Task<List<StudentLesson>> ListByIdAsync(long id);
     }
 }

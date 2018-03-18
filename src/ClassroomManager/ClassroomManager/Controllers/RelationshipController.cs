@@ -37,26 +37,34 @@ namespace App.Web.Controllers
         // GET: Relationship/StudentLessons
         public async Task<ActionResult> StudentLessons(string user, long id)
         {
-            Teacher teacher = await _teacherRepositoryAsync.GetByUserAsync(user);
-            List<Student> Students = await _studentRepositoryAsync.ListByUserAsync(user);
-            Student student = await _studentRepositoryAsync.GetByIdAsync(id);
-            List<StudentLesson> studentLessons = student.StudentLessons;
-            List<long> assignedLessons = new List<long>();
-
-            foreach (var lesson in studentLessons)
+            try
             {
-                assignedLessons.Add(lesson.LessonId);
+                Teacher teacher = await _teacherRepositoryAsync.GetByUserAsync(user);
+                List<Student> Students = await _studentRepositoryAsync.ListByUserAsync(user);
+                Student student = await _studentRepositoryAsync.GetByIdAsync(id);
+                List<StudentLesson> studentLessons = student.StudentLessons;
+                List<long> assignedLessons = new List<long>();
+
+                foreach (var lesson in studentLessons)
+                {
+                    assignedLessons.Add(lesson.LessonId);
+                }
+
+                RelationshipViewModel model = new RelationshipViewModel
+                {
+                    Teacher = teacher,
+                    Student = student,
+                    StudentLessons = studentLessons,
+                    AssignedLessons = assignedLessons
+                };
+
+                return View(model);
             }
-
-            RelationshipViewModel model = new RelationshipViewModel
+            catch (Exception)
             {
-                Teacher = teacher,
-                Student = student,
-                StudentLessons = studentLessons,
-                AssignedLessons = assignedLessons
-            };
 
-            return View(model);
+                throw;
+            }
         }
 
         // POST: Relationship/StudentLessons
@@ -68,9 +76,14 @@ namespace App.Web.Controllers
             {
                 _relationshipRepositoryAsync.RemoveById(model.Student.Id);
 
-                foreach (var id in model.Selected)
+                List<StudentLesson> shouldBeCountOfZero = await _relationshipRepositoryAsync.ListByIdAsync(model.Student.Id);
+
+                if (model.Selected != null && model.Selected.Count > 0)
                 {
-                    await _relationshipRepositoryAsync.AddAsync(model.Student.Id, id);
+                    foreach (var id in model.Selected)
+                    {
+                        await _relationshipRepositoryAsync.AddAsync(model.Student.Id, id);
+                    }
                 }
 
                 return RedirectToAction("StudentLessons", new { user = model.Teacher.User, id = model.Student.Id });

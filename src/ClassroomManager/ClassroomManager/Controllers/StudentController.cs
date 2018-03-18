@@ -15,11 +15,13 @@ namespace App.Web.Controllers
     {
         private readonly IStudentRepositoryAsync _studentRepositoryAsync;
         private readonly ITeacherRepositoryAsync _teacherRepositoryAsync;
+        private readonly IRelationshipRepositoryAsync _relationshipRepositoryAsync;
 
-        public StudentController(IStudentRepositoryAsync studentRepositoryAsync, ITeacherRepositoryAsync teacherRepositoryAsync)
+        public StudentController(IStudentRepositoryAsync studentRepositoryAsync, ITeacherRepositoryAsync teacherRepositoryAsync, IRelationshipRepositoryAsync relationshipRepositoryAsync)
         {
             _studentRepositoryAsync = studentRepositoryAsync;
             _teacherRepositoryAsync = teacherRepositoryAsync;
+            _relationshipRepositoryAsync = relationshipRepositoryAsync;
         }
 
         // GET: Student
@@ -162,6 +164,8 @@ namespace App.Web.Controllers
             try
             {
                 Student studentToDelete = await _studentRepositoryAsync.GetByIdAsync(toDelete.Id);
+
+                _relationshipRepositoryAsync.RemoveById(studentToDelete.Id);
 
                 await _studentRepositoryAsync.DeleteAsync(studentToDelete);
 

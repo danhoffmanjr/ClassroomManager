@@ -38,7 +38,7 @@ namespace App.Infrastructure
                 .HasOne(sl => sl.Lesson)
                 .WithMany(l => l.StudentLessons)
                 .HasForeignKey(sl => sl.LessonId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

@@ -45,8 +45,10 @@
             }
             <input type="hidden" asp-for="@Model.Student.Id" />
             <input type="hidden" asp-for="@Model.Teacher.User" />
-            <div class="form-group">
+            <div class="form-group mt-4">
                 <input type="submit" value="Update Student Lessons" class="btn btn-primary" />
+                <a asp-action="Index" asp-controller="Student" asp-route-user="@Model.Student.User" class="btn btn-outline-secondary">Done</a>
+
             </div>
         </form>
     </div>
