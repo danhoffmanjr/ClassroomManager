@@ -209,7 +209,7 @@ namespace App.Infrastructure.Migrations
                 column: "LessonId",
                 principalTable: "Lessons",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_StudentLessons_Students_StudentId",
@@ -217,7 +217,7 @@ namespace App.Infrastructure.Migrations
                 column: "StudentId",
                 principalTable: "Students",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.NoAction);
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -31,18 +31,14 @@ namespace App.Infrastructure
             modelBuilder.Entity<StudentLesson>()
                 .HasOne(sl => sl.Student)
                 .WithMany(s => s.StudentLessons)
-                .HasForeignKey(sl => sl.StudentId);
+                .HasForeignKey(sl => sl.StudentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<StudentLesson>()
                 .HasOne(sl => sl.Lesson)
                 .WithMany(l => l.StudentLessons)
-                .HasForeignKey(sl => sl.LessonId);
-
-            //modelBuilder.Entity<Lesson>()
-            //    .HasOne(l => l.Teacher)
-            //    .WithMany(t => t.Lessons)
-            //    .HasForeignKey(l => l.TeacherId)
-            //    .OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey(sl => sl.LessonId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

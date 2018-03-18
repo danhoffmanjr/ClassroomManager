@@ -129,7 +129,7 @@ h2.setup {
     }
 
 .summary {
-    height: 200px;
+    height: 175px;
     overflow-y: scroll;
 }
 
@@ -148,7 +148,7 @@ h2.setup {
 /*Student Card*/
 .student-card {
     width: 245px; 
-    margin: 10px;
+    margin: 8px;
 }
 
 .student-edit-icons {
